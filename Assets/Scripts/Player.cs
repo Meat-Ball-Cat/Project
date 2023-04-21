@@ -1,15 +1,22 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Rendering.LookDev;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Windows;
 
 internal class Player : MonoBehaviour
 {
-    private IManagedObject _ship;
+    private Ship _ship;
     private Controls _input;
 
     private void Awake()
     {
+        var rigidbody = gameObject.AddComponent<Rigidbody2D>();
+        rigidbody.angularDrag = 1;
+        rigidbody.drag = 1;
+        rigidbody.gravityScale = 0;
+        rigidbody.useAutoMass = true;
+
         _ship = new PlayerShipBuilder(gameObject).GetShip();
-        
         
         _input = new Controls();
 
@@ -18,9 +25,11 @@ internal class Player : MonoBehaviour
 
         _input.PlayerShip.Rotation.performed += context => _ship.Turn(context.ReadValue<float>());
         _input.PlayerShip.Rotation.canceled += _ => _ship.Turn(0);
+
+        _input.PlayerShip.Light.canceled += _ => _ship.Light();
     }
 
-    private void OnEnable() => _input.Enable();
+    private void OnEnable() => _input?.Enable();
 
-    private void OnDisable() => _input.Disable();
+    private void OnDisable() => _input?.Disable();
 }

@@ -4,14 +4,14 @@ using UnityEngine;
 public class MovingObject : MonoBehaviour, IManagedObject
 {
     protected new Rigidbody2D rigidbody;
-    protected Vector2 curentSpeed;
-    protected float curentRotation;
+    protected Vector2 curentMoveForce;
+    protected float curentTurningForce;
 
     [SerializeField]
-    protected float _movementSpeed = 5f;
+    protected float _movementSpeed;
 
     [SerializeField]
-    protected float _rotationSpeed = 0.1f;
+    protected float _turningSpeed;
 
 
     protected void Awake()
@@ -23,17 +23,17 @@ public class MovingObject : MonoBehaviour, IManagedObject
 
     protected void FixedUpdate()
     {
-        rigidbody.AddRelativeForce(curentSpeed);
-        rigidbody.AddTorque(curentRotation);
+        rigidbody.AddRelativeForce(curentMoveForce);
+        rigidbody.AddTorque(curentTurningForce, ForceMode2D.Force);
     }
 
     public void Move(Vector2 direction)
     {
-        curentSpeed = _movementSpeed * direction;
+        curentMoveForce = _movementSpeed * direction;
     }
 
     public void Turn(float axis)
     {
-        curentRotation = _rotationSpeed * axis;
+        curentTurningForce = _turningSpeed * axis;
     }
 }
