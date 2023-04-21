@@ -1,10 +1,15 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 internal class ShipBuilder
 {
     private readonly GameObject _owner;
+
 
     public ShipBuilder(GameObject owner)
     {
@@ -16,43 +21,46 @@ internal class ShipBuilder
         var ship = _owner.AddComponent<Ship>();
 
 
-        ship.AddPart(CreateCabin(), Vector2.zero);
-        ship.AddPart(CreateSpotLight(), new Vector2(1, 1));
+        ship.AddPart(CreatePartShip(typeof(Cabin)), Vector2Int.zero);
+        ship.AddPart(CreatePartShip(typeof(SpotLight)), new Vector2Int(1, 1));
 
         return ship;
     }
 
-    private Cabin CreateCabin()
+    private static PartShip CreatePartShip(Type partType)
     {
-        var childObject = new GameObject("Cabin");
-        var renderer = childObject.AddComponent<SpriteRenderer>();
-        renderer.sprite = CreateSprite(Color.blue);
+        if (!partType.IsSubclassOf(typeof(PartShip)))
+            throw new ArgumentException();
+
+        var childObject = new GameObject();
         childObject.AddComponent<BoxCollider2D>();
-        var part = childObject.AddComponent<Cabin>();
+        var renderer = childObject.AddComponent<SpriteRenderer>();
+        var part = childObject.AddComponent(partType) as PartShip;
+
+        renderer.sprite = CreateSprite(Texture[part.GetType()], part.Width, part.Height);
 
         return part;
     }
 
-    private SpotLight CreateSpotLight()
+    private static Sprite CreateSprite(Texture2D texture, int width = 1, int height = 1)
     {
-        var childObject = new GameObject("Cabin");
-        var renderer = childObject.AddComponent<SpriteRenderer>();
-        renderer.sprite = CreateSprite(Color.white);
-        childObject.AddComponent<BoxCollider2D>();
-        var part = childObject.AddComponent<SpotLight>();
-
-        return part;
+        return Sprite.Create(texture, 
+            new Rect(0, 0, texture.width, texture.height), 
+            Vector2.one * 0.5f, 
+            Math.Max((float)texture.width / width, (float)texture.height / height));
     }
 
-    private static Sprite CreateSprite(Color color, int width = 1, int height = 1)
+    private static readonly Dictionary<Type, Texture2D> Texture = new()
     {
-        const int spriteSize = 100;
-        var texture = new Texture2D(spriteSize * width, spriteSize * height);
-        texture.SetPixels(Enumerable.Range(0, texture.width * texture.height)
-            .Select(_ => color)
-            .ToArray());
+        { typeof(Cabin), CreateTexture(Color.blue) },
+        { typeof(SpotLight), CreateTexture(Color.yellow) }
+    };
+
+    private static Texture2D CreateTexture(Color color)
+    {
+        var texture = new Texture2D(1, 1);
+        texture.SetPixels(new [] { color });
         texture.Apply();
-
-        return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+        return texture;
     }
 }

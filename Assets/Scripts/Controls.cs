@@ -37,7 +37,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Rotation"",
+                    ""name"": ""Turn"",
                     ""type"": ""Value"",
                     ""id"": ""1733bf98-6871-4102-ab09-cf6e7881c6af"",
                     ""expectedControlType"": ""Axis"",
@@ -96,7 +96,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Turn"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -107,7 +107,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Turn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -118,14 +118,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Turn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
                     ""id"": ""0c9d439f-1adf-4966-9181-cfcce1ae8722"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/l"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -141,7 +141,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // PlayerShip
         m_PlayerShip = asset.FindActionMap("PlayerShip", throwIfNotFound: true);
         m_PlayerShip_Move = m_PlayerShip.FindAction("Move", throwIfNotFound: true);
-        m_PlayerShip_Rotation = m_PlayerShip.FindAction("Rotation", throwIfNotFound: true);
+        m_PlayerShip_Turn = m_PlayerShip.FindAction("Turn", throwIfNotFound: true);
         m_PlayerShip_Light = m_PlayerShip.FindAction("Light", throwIfNotFound: true);
     }
 
@@ -205,14 +205,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerShip;
     private List<IPlayerShipActions> m_PlayerShipActionsCallbackInterfaces = new List<IPlayerShipActions>();
     private readonly InputAction m_PlayerShip_Move;
-    private readonly InputAction m_PlayerShip_Rotation;
+    private readonly InputAction m_PlayerShip_Turn;
     private readonly InputAction m_PlayerShip_Light;
     public struct PlayerShipActions
     {
         private @Controls m_Wrapper;
         public PlayerShipActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_PlayerShip_Move;
-        public InputAction @Rotation => m_Wrapper.m_PlayerShip_Rotation;
+        public InputAction @Turn => m_Wrapper.m_PlayerShip_Turn;
         public InputAction @Light => m_Wrapper.m_PlayerShip_Light;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
@@ -226,9 +226,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Rotation.started += instance.OnRotation;
-            @Rotation.performed += instance.OnRotation;
-            @Rotation.canceled += instance.OnRotation;
+            @Turn.started += instance.OnTurn;
+            @Turn.performed += instance.OnTurn;
+            @Turn.canceled += instance.OnTurn;
             @Light.started += instance.OnLight;
             @Light.performed += instance.OnLight;
             @Light.canceled += instance.OnLight;
@@ -239,9 +239,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Rotation.started -= instance.OnRotation;
-            @Rotation.performed -= instance.OnRotation;
-            @Rotation.canceled -= instance.OnRotation;
+            @Turn.started -= instance.OnTurn;
+            @Turn.performed -= instance.OnTurn;
+            @Turn.canceled -= instance.OnTurn;
             @Light.started -= instance.OnLight;
             @Light.performed -= instance.OnLight;
             @Light.canceled -= instance.OnLight;
@@ -265,7 +265,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public interface IPlayerShipActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnRotation(InputAction.CallbackContext context);
+        void OnTurn(InputAction.CallbackContext context);
         void OnLight(InputAction.CallbackContext context);
     }
 }

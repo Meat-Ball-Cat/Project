@@ -16,7 +16,7 @@ internal class Cabin : PartShip, ILight, IMoving, ITurning
         _light.transform.SetParent(gameObject.transform);
     }
 
-    public void SetLightEnabled(bool lightEnabled) => _light.enabled = lightEnabled;
+    public void SetLightEnabled(bool lightEnabled) => _light.gameObject.SetActive(lightEnabled);
     public float MovementSpeed => 3;
     public float TurningSpeed => 1;
 }
