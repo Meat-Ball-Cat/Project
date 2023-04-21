@@ -14,6 +14,8 @@ internal class Cabin : PartShip, ILight, IMoving, ITurning
         _light.pointLightOuterRadius = 5;
         _light.intensity = 3;
         _light.transform.SetParent(gameObject.transform);
+
+        Alive = true;
     }
 
     public void SetLightEnabled(bool lightEnabled) => _light.gameObject.SetActive(lightEnabled);

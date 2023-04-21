@@ -21,18 +21,23 @@ internal abstract class PartShip : MonoBehaviour
         {
 
             var newHitPoint = Math.Max(value, 0);
-            if (newHitPoint == 0 && HitPoint > 0)
-            {
-                gameObject.SetActive(false);
-                Died.Invoke(this, null);
-            }
+            var lastHitPoint = _hitPoint;
             _hitPoint = newHitPoint;
+
+            if (_hitPoint != 0 || lastHitPoint <= 0) return;
+            gameObject.SetActive(false);
+            Died.Invoke(this, null);
         }
     }
 
     public void Die() => HitPoint = 0;
     public event EventHandler Died;
-    public bool Alive => gameObject.activeSelf;
+
+    public bool Alive
+    {
+        get => gameObject.activeSelf;
+        set => gameObject.SetActive(value);
+    }
 
     public virtual int Width => 1;
     public virtual int Height => 1;
@@ -44,6 +49,8 @@ internal abstract class PartShip : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
 
         HitPoint = 25;
+
+        Alive = false;
     }
 
     public readonly HashSet<PartShip> ConnectedParts = new ();
@@ -52,7 +59,6 @@ internal abstract class PartShip : MonoBehaviour
     {
         _renderer.color = Color.red;
         HitPoint -= 10;
-        Debug.Log(HitPoint);
         _timePassed = 0;
     }
 

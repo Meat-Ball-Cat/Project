@@ -23,6 +23,7 @@ internal class ShipBuilder
 
         ship.AddPart(CreatePartShip(typeof(Cabin)), Vector2Int.zero);
         ship.AddPart(CreatePartShip(typeof(SpotLight)), new Vector2Int(1, 1));
+        ship.AddPart(CreatePartShip(typeof(SpotLight)), new Vector2Int(1, 0));
 
         return ship;
     }
