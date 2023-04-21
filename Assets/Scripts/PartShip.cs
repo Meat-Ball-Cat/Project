@@ -22,8 +22,8 @@ internal abstract class PartShip : MonoBehaviour
             _hitPoint = Math.Max(value, 0);
             if (_hitPoint == 0)
             {
-                Died.Invoke(this, null);
                 gameObject.SetActive(false);
+                Died.Invoke(this, null);
             }
         }
     }
