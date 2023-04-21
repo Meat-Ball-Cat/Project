@@ -19,12 +19,14 @@ internal abstract class PartShip : MonoBehaviour
         get => _hitPoint;
         set
         {
-            _hitPoint = Math.Max(value, 0);
-            if (_hitPoint == 0)
+
+            var newHitPoint = Math.Max(value, 0);
+            if (newHitPoint == 0 && HitPoint > 0)
             {
                 gameObject.SetActive(false);
                 Died.Invoke(this, null);
             }
+            _hitPoint = newHitPoint;
         }
     }
 
