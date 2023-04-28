@@ -10,7 +10,7 @@ internal abstract class ShipPart : MonoBehaviour
     private Collider2D _collider;
     private SpriteRenderer _renderer;
 
-    private Cooldown _hitCooldown = new(500);
+    protected readonly Cooldown HitCooldown = new(500);
     
     private int _hitPoint; 
     
@@ -19,10 +19,10 @@ internal abstract class ShipPart : MonoBehaviour
         get => _hitPoint;
         set
         {
-            if (value < _hitPoint && _hitCooldown.CoolingDown) 
+            if (value < _hitPoint && HitCooldown.CoolingDown) 
                 return;
             else if (value < _hitPoint)
-                _hitCooldown.DelayedStart(10);
+                HitCooldown.DelayedStart(10);
 
             var newHitPoint = Math.Max(value, 0);
             var lastHitPoint = _hitPoint;
@@ -72,8 +72,8 @@ internal abstract class ShipPart : MonoBehaviour
     private void Update()
     {
         _renderer.color = 
-            _hitCooldown.CoolingDown 
-                ? Color.Lerp(Color.red, Color.white, _hitCooldown.ElapsedFrac) 
+            HitCooldown.CoolingDown 
+                ? Color.Lerp(Color.red, Color.white, HitCooldown.ElapsedFrac) 
                 : Color.white;
     }
 }

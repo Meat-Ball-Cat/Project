@@ -16,7 +16,7 @@ internal class Player : MonoBehaviour
         rigidbody.gravityScale = 0;
         rigidbody.useAutoMass = true;
 
-        _ship = new PlayerShipBuilder(gameObject).GetShip();
+        _ship = new PlayerShipFactory(gameObject).GetShip();
         
         _input = new Controls();
 

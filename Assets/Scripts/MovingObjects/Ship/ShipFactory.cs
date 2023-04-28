@@ -6,29 +6,29 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
-internal class ShipBuilder
+internal class ShipFactory
 {
     private readonly GameObject _owner;
 
 
-    public ShipBuilder(GameObject owner)
+    public ShipFactory(GameObject owner)
     {
         _owner = owner;
     }
 
-    public Ship AddShip()
+    public Ship CreateShip()
     {
         var ship = _owner.AddComponent<Ship>();
 
 
-        ship.AddPart(CreatePartShip(typeof(Cockpit)), Vector2Int.zero);
-        ship.AddPart(CreatePartShip(typeof(Spotlight)), new Vector2Int(1, 1));
-        ship.AddPart(CreatePartShip(typeof(Spotlight)), new Vector2Int(1, 0));
+        ship.AddPart(CreateShipPart(typeof(Cockpit)), Vector2Int.zero);
+        ship.AddPart(CreateShipPart(typeof(Spotlight)), new Vector2Int(1, 1));
+        ship.AddPart(CreateShipPart(typeof(Spotlight)), new Vector2Int(1, 0));
 
         return ship;
     }
 
-    private static ShipPart CreatePartShip(Type partType)
+    private static ShipPart CreateShipPart(Type partType)
     {
         if (!partType.IsSubclassOf(typeof(ShipPart)))
             throw new ArgumentException();
@@ -38,7 +38,7 @@ internal class ShipBuilder
         var renderer = childObject.AddComponent<SpriteRenderer>();
         var part = childObject.AddComponent(partType) as ShipPart;
 
-        renderer.sprite = CreateSprite(Texture[part.GetType()], part.Width, part.Height);
+        renderer.sprite = CreateSprite(Textures[part.GetType()], part.Width, part.Height);
 
         return part;
     }
@@ -51,7 +51,7 @@ internal class ShipBuilder
             Math.Max((float)texture.width / width, (float)texture.height / height));
     }
 
-    private static readonly Dictionary<Type, Texture2D> Texture = new()
+    private static readonly Dictionary<Type, Texture2D> Textures = new()
     {
         { typeof(Cockpit), CreateTexture(Color.blue) },
         { typeof(Spotlight), CreateTexture(Color.yellow) }
