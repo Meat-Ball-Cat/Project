@@ -7,7 +7,7 @@ public class ManagerScript : MonoBehaviour
     [SerializeField] 
     private GameObject Light;
 
-    void Awake()
+    private void Awake()
     {
         Helper.Light ??= Light;
 

@@ -6,7 +6,7 @@ public abstract class MovingObject : MonoBehaviour, IManagedObject
     protected new Rigidbody2D Rigidbody;
     protected Vector2 CurrentMoveForce;
     protected float CurrentTurnForce;
-
+    
     [FormerlySerializedAs("_movementSpeed")] [SerializeField]
     protected float movementSpeed;
 

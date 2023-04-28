@@ -94,7 +94,7 @@ internal class Ship : MovingObject
     /// </summary>
     /// <param name="sender">Часть коробля</param>
     /// <param name="e">Ничего</param>
-    /// <exception cref="ArgumentException">В случае если sender не является PartShip</exception>
+    /// <exception cref="ArgumentException">В случае если sender не является ShipPart</exception>
     /// P.S. В этом методе убиваются ненужные объекты, тем самым вызывается событие Die у этого объекта
     /// Каждый раз в обработчике строится обходится граф, что не очень, но эта штука вызывается не часто
     /// так что пока сойдет
