@@ -1,7 +1,7 @@
 ﻿
     using UnityEngine.Rendering.Universal;
 
-    internal class SpotLight : PartShip, ILight
+    internal class Spotlight : ShipPart, ILight
     { 
         private Light2D _light;
 

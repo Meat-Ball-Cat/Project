@@ -15,6 +15,7 @@ public class ManagerScript : MonoBehaviour
         {
             layer = gameObject.layer
         };
+        
         player.AddComponent<Player>();
 
         var cameraObject = new GameObject("Main camera");

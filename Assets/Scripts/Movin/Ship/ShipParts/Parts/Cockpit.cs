@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-internal class Cabin : PartShip, ILight, IMoving, ITurning
+internal class Cockpit : ShipPart, ILight, IMoving, ITurning
 {
     private Light2D _light;
 
@@ -15,7 +15,7 @@ internal class Cabin : PartShip, ILight, IMoving, ITurning
         _light.intensity = 3;
         _light.transform.SetParent(gameObject.transform);
 
-        Alive = true;
+        IsAlive = true;
     }
 
     public void SetLightEnabled(bool lightEnabled) => _light.gameObject.SetActive(lightEnabled);

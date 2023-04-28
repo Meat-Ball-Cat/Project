@@ -7,11 +7,11 @@ internal class Ship : MovingObject
 {
     private GameObject _shipObject;
 
-    private Cabin _cabin;
+    private Cockpit _cockpit;
 
-    private readonly PartShip[,] _partPositions = new PartShip[100, 100];
-    private PartShip PartInPosition(int x, int y) => _partPositions[x + 50, y + 50];
-    private void SetPartInPosition(PartShip part, int x, int y) => _partPositions[x + 50, y + 50] = part;
+    private readonly ShipPart[,] _partPositions = new ShipPart[100, 100];
+    private ShipPart PartInPosition(int x, int y) => _partPositions[x + 50, y + 50];
+    private void SetPartInPosition(ShipPart shipPart, int x, int y) => _partPositions[x + 50, y + 50] = shipPart;
 
     private bool _lightEnabled = true;
     public bool LightEnabled
@@ -20,7 +20,7 @@ internal class Ship : MovingObject
         set
         {
             _lightEnabled = value;
-            foreach (var partLight in GetPart(_cabin, false).OfType<ILight>())
+            foreach (var partLight in GetPart(_cockpit, false).OfType<ILight>())
                 partLight.SetLightEnabled(_lightEnabled);
         }
     }
@@ -37,51 +37,51 @@ internal class Ship : MovingObject
     /// <summary>
     /// Добавляет часть корабля к кораблю
     /// </summary>
-    /// <param name="newPart">Часть, которую надо добавить</param>
+    /// <param name="newShipPart">Часть, которую надо добавить</param>
     /// <param name="position">Позиция, на которую надо установить данную часть</param>
     /// <exception cref="ArgumentException">В случае, если установка невозможна</exception>
     /// P.S. Возможно стоит переписать через возврат результата установки
     /// А еще надо отрефакторить и вынести вспомогательные методы
-    public void AddPart(PartShip newPart, Vector2Int position)
+    public void AddPart(ShipPart newShipPart, Vector2Int position)
     {
-        if (_cabin != null && newPart is Cabin)
+        if (_cockpit != null && newShipPart is Cockpit)
             throw new ArgumentException();
 
-        for (var i = 0; i < newPart.Width; i++)
-        for (var j = 0; j < newPart.Height; j++)
+        for (var i = 0; i < newShipPart.Width; i++)
+        for (var j = 0; j < newShipPart.Height; j++)
         {
             if (PartInPosition(position.x + i, position.y + j) != null)
                 throw new ArgumentException();
         }
 
-        if (newPart is Cabin cabin)
-            _cabin = cabin;
+        if (newShipPart is Cockpit cabin)
+            _cockpit = cabin;
 
-        for (var i = 0; i < newPart.Width; i++)
-        for (var j = 0; j < newPart.Height; j++)
+        for (var i = 0; i < newShipPart.Width; i++)
+        for (var j = 0; j < newShipPart.Height; j++)
         {
-            SetPartInPosition(newPart, position.x + i, position.y + j);
+            SetPartInPosition(newShipPart, position.x + i, position.y + j);
         }
 
 
-        foreach (var pos in GetFrame(position, newPart.Width, newPart.Height))
+        foreach (var pos in GetFrame(position, newShipPart.Width, newShipPart.Height))
         {
             var connectedPart = PartInPosition(pos.x, pos.y);
             if (connectedPart is null) continue;
-            connectedPart.ConnectedParts.Add(newPart);
-            newPart.ConnectedParts.Add(connectedPart);
-            Debug.Log(newPart + " - " + connectedPart);
+            connectedPart.ConnectedParts.Add(newShipPart);
+            newShipPart.ConnectedParts.Add(connectedPart);
+            Debug.Log(newShipPart + " - " + connectedPart);
         }
 
 
-        newPart.gameObject.transform.SetParent(_shipObject.transform);
-        newPart.gameObject.transform.position = (Vector2)position;
-        newPart.gameObject.layer = _shipObject.layer;
+        newShipPart.gameObject.transform.SetParent(_shipObject.transform);
+        newShipPart.gameObject.transform.position = (Vector2)position;
+        newShipPart.gameObject.layer = _shipObject.layer;
 
-        newPart.Died += Die;
-        newPart.Died += (obj, e)
+        newShipPart.Died += Die;
+        newShipPart.Died += (obj, e)
             => UpdateMovementSpeed();
-        newPart.Died += (obj, e)
+        newShipPart.Died += (obj, e)
             => UpdateTurningSpeed();
 
         UpdateMovementSpeed();
@@ -100,17 +100,17 @@ internal class Ship : MovingObject
     /// так что пока сойдет
     public void Die(object sender, EventArgs e)
     {
-        if (sender is Cabin)
+        if (sender is Cockpit)
         {
-            foreach (var part in GetPart(_cabin, true))
+            foreach (var part in GetPart(_cockpit, true))
                 part.Die();
             return;
         }
 
-        if (sender is not PartShip diedPart) throw new ArgumentException();
+        if (sender is not ShipPart diedPart) throw new ArgumentException();
         var diedParts = GetPart(diedPart, true);
-        diedParts.ExceptWith(GetPart(_cabin, false));
-        foreach (var part in diedParts.Where(part => part.Alive))
+        diedParts.ExceptWith(GetPart(_cockpit, false));
+        foreach (var part in diedParts.Where(part => part.IsAlive))
             part.Die();
     }
 
@@ -119,7 +119,7 @@ internal class Ship : MovingObject
     /// </summary>
     private void UpdateMovementSpeed()
     {
-        _movementSpeed = GetPart(_cabin, false)
+        movementSpeed = GetPart(_cockpit, false)
             .OfType<IMoving>()
             .Select(part => part.MovementSpeed)
             .Sum();
@@ -130,7 +130,7 @@ internal class Ship : MovingObject
     /// </summary>
     private void UpdateTurningSpeed()
     {
-        _turningSpeed = GetPart(_cabin, false)
+        turningSpeed = GetPart(_cockpit, false)
             .OfType<ITurning>()
             .Select(part => part.TurningSpeed)
             .Sum();
@@ -138,8 +138,8 @@ internal class Ship : MovingObject
 
     private void ActivateShipParts()
     {
-        foreach (var connectedPart in GetPart(_cabin, true))
-            connectedPart.Alive = true;
+        foreach (var connectedPart in GetPart(_cockpit, true))
+            connectedPart.IsAlive = true;
     }
 
     // Создать хэлпер и утащить туда
@@ -160,10 +160,10 @@ internal class Ship : MovingObject
 
     // Это тоже можно в хэлпер
     // Сделано кривовато
-    public static ISet<PartShip> GetPart(PartShip start, bool goOffPart)
+    public static ISet<ShipPart> GetPart(ShipPart start, bool goOffPart)
     {
-        var parts = new HashSet<PartShip>();
-        var partQueue = new Queue<PartShip>();
+        var parts = new HashSet<ShipPart>();
+        var partQueue = new Queue<ShipPart>();
 
         if (start == null) return parts;
 
@@ -172,7 +172,7 @@ internal class Ship : MovingObject
         while (partQueue.Count > 0)
         {
             var currentPart = partQueue.Dequeue();
-            if (!goOffPart && !currentPart.Alive) continue;
+            if (!goOffPart && !currentPart.IsAlive) continue;
             if (parts.Contains(currentPart)) continue;
             parts.Add(currentPart);
             foreach (var part in currentPart.ConnectedParts)

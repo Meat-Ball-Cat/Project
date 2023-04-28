@@ -1,39 +1,39 @@
-using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class MovingObject : MonoBehaviour, IManagedObject
+public abstract class MovingObject : MonoBehaviour, IManagedObject
 {
-    protected new Rigidbody2D rigidbody;
-    protected Vector2 curentMoveForce;
-    protected float curentTurningForce;
+    protected new Rigidbody2D Rigidbody;
+    protected Vector2 CurrentMoveForce;
+    protected float CurrentTurnForce;
 
-    [SerializeField]
-    protected float _movementSpeed;
+    [FormerlySerializedAs("_movementSpeed")] [SerializeField]
+    protected float movementSpeed;
 
-    [SerializeField]
-    protected float _turningSpeed;
+    [FormerlySerializedAs("_turningSpeed")] [SerializeField]
+    protected float turningSpeed;
 
 
     protected void Awake()
     {
-        if (!gameObject.TryGetComponent<Rigidbody2D>(out rigidbody))
-            rigidbody = gameObject.AddComponent<Rigidbody2D>();
+        if (!gameObject.TryGetComponent(out Rigidbody))
+            Rigidbody = gameObject.AddComponent<Rigidbody2D>();
     }
 
 
     protected void FixedUpdate()
     {
-        rigidbody.AddRelativeForce(curentMoveForce);
-        rigidbody.AddTorque(curentTurningForce, ForceMode2D.Force);
+        Rigidbody.AddRelativeForce(CurrentMoveForce);
+        Rigidbody.AddTorque(CurrentTurnForce, ForceMode2D.Force);
     }
 
     public void Move(Vector2 direction)
     {
-        curentMoveForce = _movementSpeed * direction;
+        CurrentMoveForce = movementSpeed * direction;
     }
 
     public void Turn(float axis)
     {
-        curentTurningForce = _turningSpeed * axis;
+        CurrentTurnForce = turningSpeed * axis;
     }
 }
