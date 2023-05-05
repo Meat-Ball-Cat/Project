@@ -1,67 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
+using Model.MovingObjects.Ship.ShipParts;
+using Model.MovingObjects.Ship.ShipParts.Parts;
 using UnityEngine;
-using UnityEngine.Rendering;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
-internal class ShipFactory
+namespace Model.MovingObjects.Ship
 {
-    private readonly GameObject _owner;
-
-
-    public ShipFactory(GameObject owner)
+    internal class ShipFactory
     {
-        _owner = owner;
-    }
-
-    public Ship CreateShip()
-    {
-        var ship = _owner.AddComponent<Ship>();
+        private readonly GameObject _owner;
 
 
-        ship.AddPart(CreateShipPart(typeof(Cockpit)), Vector2Int.zero);
-        ship.AddPart(CreateShipPart(typeof(Spotlight)), new Vector2Int(1, 1));
-        ship.AddPart(CreateShipPart(typeof(Spotlight)), new Vector2Int(1, 0));
+        public ShipFactory(GameObject owner)
+        {
+            _owner = owner;
+        }
 
-        return ship;
-    }
+        public global::Model.MovingObjects.Ship.Ship CreateShip()
+        {
+            var ship = _owner.AddComponent<global::Model.MovingObjects.Ship.Ship>();
 
-    private static ShipPart CreateShipPart(Type partType)
-    {
-        if (!partType.IsSubclassOf(typeof(ShipPart)))
-            throw new ArgumentException();
 
-        var childObject = new GameObject();
-        childObject.AddComponent<BoxCollider2D>();
-        var renderer = childObject.AddComponent<SpriteRenderer>();
-        var part = childObject.AddComponent(partType) as ShipPart;
+            ship.AddPart(CreateShipPart(typeof(Cockpit)), Vector2Int.zero);
+            ship.AddPart(CreateShipPart(typeof(Spotlight)), new Vector2Int(1, 1));
+            ship.AddPart(CreateShipPart(typeof(Spotlight)), new Vector2Int(1, 0));
 
-        renderer.sprite = CreateSprite(Textures[part.GetType()], part.Width, part.Height);
+            return ship;
+        }
 
-        return part;
-    }
+        private static ShipPart CreateShipPart(Type partType)
+        {
+            if (!partType.IsSubclassOf(typeof(ShipPart)))
+                throw new ArgumentException();
 
-    private static Sprite CreateSprite(Texture2D texture, int width = 1, int height = 1)
-    {
-        return Sprite.Create(texture, 
-            new Rect(0, 0, texture.width, texture.height), 
-            Vector2.one * 0.5f, 
-            Math.Max((float)texture.width / width, (float)texture.height / height));
-    }
+            var childObject = new GameObject();
+            childObject.AddComponent<BoxCollider2D>();
+            var renderer = childObject.AddComponent<SpriteRenderer>();
+            var part = childObject.AddComponent(partType) as ShipPart;
 
-    private static readonly Dictionary<Type, Texture2D> Textures = new()
-    {
-        { typeof(Cockpit), CreateTexture(Color.blue) },
-        { typeof(Spotlight), CreateTexture(Color.yellow) }
-    };
+            renderer.sprite = CreateSprite(Textures[part.GetType()], part.Width, part.Height);
 
-    private static Texture2D CreateTexture(Color color)
-    {
-        var texture = new Texture2D(1, 1);
-        texture.SetPixels(new [] { color });
-        texture.Apply();
-        return texture;
+            return part;
+        }
+
+        private static Sprite CreateSprite(Texture2D texture, int width = 1, int height = 1)
+        {
+            return Sprite.Create(texture, 
+                new Rect(0, 0, texture.width, texture.height), 
+                Vector2.one * 0.5f, 
+                Math.Max((float)texture.width / width, (float)texture.height / height));
+        }
+
+        private static readonly Dictionary<Type, Texture2D> Textures = new()
+        {
+            { typeof(Cockpit), CreateTexture(Color.blue) },
+            { typeof(Spotlight), CreateTexture(Color.yellow) }
+        };
+
+        private static Texture2D CreateTexture(Color color)
+        {
+            var texture = new Texture2D(1, 1);
+            texture.SetPixels(new [] { color });
+            texture.Apply();
+            return texture;
+        }
     }
 }

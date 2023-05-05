@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-internal interface IManagedObject
+namespace Model.MovingObjects
 {
-    public void Move(Vector2 direction);
-    public void Turn(float side);
+    internal interface IManagedObject
+    {
+        public void Move(Vector2 direction);
+        public void Turn(float side);
+    }
 }

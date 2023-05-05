@@ -1,79 +1,81 @@
 ﻿using System;
 using System.Collections.Generic;
-using Model;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(Renderer))]
-internal abstract class ShipPart : MonoBehaviour
+namespace Model.MovingObjects.Ship.ShipParts
 {
-    private Collider2D _collider;
-    private SpriteRenderer _renderer;
-
-    protected readonly Cooldown HitCooldown = new(500);
-    
-    private int _hitPoint; 
-    
-    private int HitPoint
+    [RequireComponent(typeof(Collider2D))]
+    [RequireComponent(typeof(Renderer))]
+    internal abstract class ShipPart : MonoBehaviour
     {
-        get => _hitPoint;
-        set
+        private Collider2D _collider;
+        private SpriteRenderer _renderer;
+
+        protected readonly Cooldown HitCooldown = new(500);
+    
+        private int _hitPoint; 
+    
+        private int HitPoint
         {
-            if (value < _hitPoint && HitCooldown.CoolingDown) 
-                return;
-            else if (value < _hitPoint)
-                HitCooldown.DelayedStart(10);
+            get => _hitPoint;
+            set
+            {
+                if (value < _hitPoint && HitCooldown.CoolingDown) 
+                    return;
+                else if (value < _hitPoint)
+                    HitCooldown.DelayedStart(10);
 
-            var newHitPoint = Math.Max(value, 0);
-            var lastHitPoint = _hitPoint;
-            _hitPoint = newHitPoint;
+                var newHitPoint = Math.Max(value, 0);
+                var lastHitPoint = _hitPoint;
+                _hitPoint = newHitPoint;
 
-            if (_hitPoint != 0 || lastHitPoint <= 0) 
-                return;
+                if (_hitPoint != 0 || lastHitPoint <= 0) 
+                    return;
             
-            gameObject.SetActive(false);
-            Died.Invoke(this, null);
+                gameObject.SetActive(false);
+                Died.Invoke(this, null);
+            }
         }
-    }
 
-    public void Die()
-        => HitPoint = 0;
+        public void Die()
+            => HitPoint = 0;
     
-    public event EventHandler Died;
+        public event EventHandler Died;
 
-    public bool IsAlive
-    {
-        get => gameObject.activeSelf;
-        set => gameObject.SetActive(value);
-    }
+        public bool IsAlive
+        {
+            get => gameObject.activeSelf;
+            set => gameObject.SetActive(value);
+        }
 
-    public virtual int Width
-        => 1;
-    public virtual int Height 
-        => 1;
+        public virtual int Width
+            => 1;
+        public virtual int Height 
+            => 1;
 
-    protected void Awake()
-    {
-        _collider = GetComponent<Collider2D>();
-        _renderer = GetComponent<SpriteRenderer>();
+        protected void Awake()
+        {
+            _collider = GetComponent<Collider2D>();
+            _renderer = GetComponent<SpriteRenderer>();
 
-        HitPoint = 25;
-        IsAlive = false;
-    }
+            HitPoint = 25;
+            IsAlive = false;
+        }
 
-    public readonly HashSet<ShipPart> ConnectedParts = new();
+        public readonly HashSet<ShipPart> ConnectedParts = new();
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        _renderer.color = Color.red;
-        HitPoint -= 10;
-    }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            _renderer.color = Color.red;
+            HitPoint -= 10;
+        }
 
-    private void Update()
-    {
-        _renderer.color = 
-            HitCooldown.CoolingDown 
-                ? Color.Lerp(Color.red, Color.white, HitCooldown.ElapsedFrac) 
-                : Color.white;
+        private void Update()
+        {
+            _renderer.color = 
+                HitCooldown.CoolingDown 
+                    ? Color.Lerp(Color.red, Color.white, HitCooldown.ElapsedFrac) 
+                    : Color.white;
+        }
     }
 }

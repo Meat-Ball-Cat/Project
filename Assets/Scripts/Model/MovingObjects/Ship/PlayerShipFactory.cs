@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
-internal class PlayerShipFactory : ShipFactory
+namespace Model.MovingObjects.Ship
 {
-    public PlayerShipFactory(GameObject owner) : base(owner) {}
-
-    public Ship GetShip()
+    internal class PlayerShipFactory : ShipFactory
     {
-        return CreateShip();
+        public PlayerShipFactory(GameObject owner) : base(owner) {}
+
+        public Ship GetShip()
+        {
+            return CreateShip();
+        }
     }
 }

@@ -1,19 +1,22 @@
 ﻿using UnityEngine.Rendering.Universal;
 
-internal class Spotlight : ShipPart, ILight
+namespace Model.MovingObjects.Ship.ShipParts.Parts
 {
-    private Light2D _light;
-
-    private new void Awake()
+    internal class Spotlight : ShipPart, ILight
     {
-        base.Awake();
+        private Light2D _light;
 
-        _light = Instantiate(Helper.Light).GetComponent<Light2D>();
-        _light.transform.SetParent(gameObject.transform);
-    }
+        private new void Awake()
+        {
+            base.Awake();
 
-    public void SetLightEnabled(bool enabledLight)
-    {
-        _light.enabled = enabledLight;
+            _light = Instantiate(Helper.Light).GetComponent<Light2D>();
+            _light.transform.SetParent(gameObject.transform);
+        }
+
+        public void SetLightEnabled(bool enabledLight)
+        {
+            _light.enabled = enabledLight;
+        }
     }
 }
