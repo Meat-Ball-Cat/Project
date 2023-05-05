@@ -32,6 +32,13 @@ namespace Model
 
             _input.PlayerShip.Light.canceled += _ 
                 => _ship.LightEnabled = !_ship.LightEnabled;
+
+            _input.PlayerShip.Ascend.performed += 
+                _ => _ship.AscendOneLevel();
+
+            _input.PlayerShip.Descend.performed +=
+                _ => _ship.DescendOneLevel();
+
         }
 
         private void OnEnable() => _input?.Enable();
