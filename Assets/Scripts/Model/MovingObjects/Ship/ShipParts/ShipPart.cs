@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Model.MovingObjects.Ship.ShipParts
 {
@@ -12,9 +13,11 @@ namespace Model.MovingObjects.Ship.ShipParts
         private SpriteRenderer _renderer;
 
         protected readonly Cooldown HitCooldown = new(500);
-    
+
+        [SerializeField]
+        private int baseHp = 25;
         private int _hitPoint; 
-    
+        
         private int HitPoint
         {
             get => _hitPoint;
@@ -58,7 +61,7 @@ namespace Model.MovingObjects.Ship.ShipParts
             _collider = GetComponent<Collider2D>();
             _renderer = GetComponent<SpriteRenderer>();
 
-            HitPoint = 25;
+            HitPoint = baseHp;
             IsAlive = false;
         }
 

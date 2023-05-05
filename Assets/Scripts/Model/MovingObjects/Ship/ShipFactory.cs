@@ -24,6 +24,8 @@ namespace Model.MovingObjects.Ship
             ship.AddPart(CreateShipPart(typeof(Cockpit)), Vector2Int.zero);
             ship.AddPart(CreateShipPart(typeof(Spotlight)), new Vector2Int(1, 1));
             ship.AddPart(CreateShipPart(typeof(Spotlight)), new Vector2Int(1, 0));
+            ship.AddPart(CreateShipPart(typeof(Engine)), new Vector2Int(-1, 0));
+            ship.AddPart(CreateShipPart(typeof(Engine)), new Vector2Int(-1, 1));
 
             return ship;
         }
@@ -54,7 +56,8 @@ namespace Model.MovingObjects.Ship
         private static readonly Dictionary<Type, Texture2D> Textures = new()
         {
             { typeof(Cockpit), CreateTexture(Color.blue) },
-            { typeof(Spotlight), CreateTexture(Color.yellow) }
+            { typeof(Spotlight), CreateTexture(Color.yellow) },
+            { typeof(Engine), CreateTexture(Color.green) },
         };
 
         private static Texture2D CreateTexture(Color color)

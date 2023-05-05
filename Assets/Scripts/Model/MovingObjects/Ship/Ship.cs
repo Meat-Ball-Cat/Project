@@ -15,7 +15,8 @@ namespace Model.MovingObjects.Ship
 
         private readonly ShipPart[,] _partPositions = new ShipPart[100, 100];
         private ShipPart PartInPosition(int x, int y) => _partPositions[x + 50, y + 50];
-        private void SetPartInPosition(ShipPart shipPart, int x, int y) => _partPositions[x + 50, y + 50] = shipPart;
+        private void SetPartInPosition(ShipPart shipPart, int x, int y) 
+            => _partPositions[x + 50, y + 50] = shipPart;
 
         private bool _lightEnabled = true;
         public bool LightEnabled
