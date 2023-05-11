@@ -1,8 +1,9 @@
-﻿
-    using UnityEngine.Rendering.Universal;
+﻿using UnityEngine.Rendering.Universal;
 
-    internal class SpotLight : PartShip, ILight
-    { 
+namespace Model.MovingObjects.Ship.ShipParts.Parts
+{
+    internal class Spotlight : ShipPart, ILight
+    {
         private Light2D _light;
 
         private new void Awake()
@@ -18,4 +19,4 @@
             _light.enabled = enabledLight;
         }
     }
-
+}

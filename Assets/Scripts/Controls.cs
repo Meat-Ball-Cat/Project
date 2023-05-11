@@ -53,6 +53,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Descend"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8504bbb-4e3d-40d5-bfdd-c770cc77ac79"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ascend"",
+                    ""type"": ""Button"",
+                    ""id"": ""325d6621-a242-4898-b35f-60fe551533e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +150,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Light"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5869af46-6105-4f13-ac99-26a84c70a06e"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Descend"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6fc843a-ab68-49ec-927f-79b4fd929f84"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ascend"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +183,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_PlayerShip_Move = m_PlayerShip.FindAction("Move", throwIfNotFound: true);
         m_PlayerShip_Turn = m_PlayerShip.FindAction("Turn", throwIfNotFound: true);
         m_PlayerShip_Light = m_PlayerShip.FindAction("Light", throwIfNotFound: true);
+        m_PlayerShip_Descend = m_PlayerShip.FindAction("Descend", throwIfNotFound: true);
+        m_PlayerShip_Ascend = m_PlayerShip.FindAction("Ascend", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +249,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_Move;
     private readonly InputAction m_PlayerShip_Turn;
     private readonly InputAction m_PlayerShip_Light;
+    private readonly InputAction m_PlayerShip_Descend;
+    private readonly InputAction m_PlayerShip_Ascend;
     public struct PlayerShipActions
     {
         private @Controls m_Wrapper;
@@ -214,6 +258,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_PlayerShip_Move;
         public InputAction @Turn => m_Wrapper.m_PlayerShip_Turn;
         public InputAction @Light => m_Wrapper.m_PlayerShip_Light;
+        public InputAction @Descend => m_Wrapper.m_PlayerShip_Descend;
+        public InputAction @Ascend => m_Wrapper.m_PlayerShip_Ascend;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +278,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Light.started += instance.OnLight;
             @Light.performed += instance.OnLight;
             @Light.canceled += instance.OnLight;
+            @Descend.started += instance.OnDescend;
+            @Descend.performed += instance.OnDescend;
+            @Descend.canceled += instance.OnDescend;
+            @Ascend.started += instance.OnAscend;
+            @Ascend.performed += instance.OnAscend;
+            @Ascend.canceled += instance.OnAscend;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -245,6 +297,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Light.started -= instance.OnLight;
             @Light.performed -= instance.OnLight;
             @Light.canceled -= instance.OnLight;
+            @Descend.started -= instance.OnDescend;
+            @Descend.performed -= instance.OnDescend;
+            @Descend.canceled -= instance.OnDescend;
+            @Ascend.started -= instance.OnAscend;
+            @Ascend.performed -= instance.OnAscend;
+            @Ascend.canceled -= instance.OnAscend;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -267,5 +325,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnTurn(InputAction.CallbackContext context);
         void OnLight(InputAction.CallbackContext context);
+        void OnDescend(InputAction.CallbackContext context);
+        void OnAscend(InputAction.CallbackContext context);
     }
 }
