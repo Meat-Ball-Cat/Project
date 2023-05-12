@@ -18,7 +18,7 @@ namespace Model.MovingObjects
         
         public int CurrentLevel { get; private set; }
         
-        protected bool ControlsLocked { get; private set;  } 
+        protected bool DepthChangeLocked { get; private set;  } 
     
         [FormerlySerializedAs("_movementSpeed")] [SerializeField]
         protected float movementSpeed;
@@ -43,35 +43,37 @@ namespace Model.MovingObjects
 
         public void Move(Vector2 direction)
         {
-            if (ControlsLocked)
-                return;
             CurrentMoveForce = movementSpeed * direction;
         }
 
         public void Turn(float axis)
         {
-            if (ControlsLocked)
-                return;
             CurrentTurnForce = turningSpeed * axis;
         }
 
         public void DescendOneLevel()
         {
+            if (DepthChangeLocked)
+                return;
+            
             if (this.LevelManager.TryGetLevelDepth(CurrentLevel + 1, out var depth))
             {
                 StartCoroutine(ChangeDepth(depth, OneLevelChangeTimeSeconds));
                 CurrentLevel++;
-                ControlsLocked = true;
+                DepthChangeLocked = true;
             }
         }
         
         public void AscendOneLevel()
         {
+            if (DepthChangeLocked)
+                return;
+            
             if (this.LevelManager.TryGetLevelDepth(CurrentLevel - 1, out var depth))
             {
                 StartCoroutine(ChangeDepth(depth, OneLevelChangeTimeSeconds));
                 CurrentLevel--;
-                ControlsLocked = true;
+                DepthChangeLocked = true;
             }
         }
 
@@ -85,7 +87,7 @@ namespace Model.MovingObjects
                 yield return null;
             }
 
-            ControlsLocked = false;
+            DepthChangeLocked = false;
         }
     }
 }
