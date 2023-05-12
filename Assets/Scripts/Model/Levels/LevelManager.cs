@@ -5,8 +5,7 @@ namespace Model.Levels
 {
     public class LevelManager : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject[] levels;
+        [SerializeField] private GameObject[] levels;
 
         public bool TryGetLevelDepth(int levelIndex, out float depthZ)
         {

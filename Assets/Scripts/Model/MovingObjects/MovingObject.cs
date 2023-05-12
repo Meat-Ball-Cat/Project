@@ -7,16 +7,13 @@ using UnityEngine.Serialization;
 
 namespace Model.MovingObjects
 {
-    public abstract class MovingObject : MonoBehaviour, IManagedObject
+    public abstract class MovingObject : Layered, IManagedObject
     {
         protected new Rigidbody2D Rigidbody;
         protected Vector2 CurrentMoveForce;
         protected float CurrentTurnForce;
-        protected LevelManager LevelManager;
 
         public const float OneLevelChangeTimeSeconds = 0.4f;
-        
-        public int CurrentLevel { get; private set; }
         
         protected bool DepthChangeLocked { get; private set;  } 
     
@@ -31,9 +28,8 @@ namespace Model.MovingObjects
         {
             if (!gameObject.TryGetComponent(out Rigidbody))
                 Rigidbody = gameObject.AddComponent<Rigidbody2D>();
-            this.LevelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+            LayerManager.Instance.AddObject(this, 0);
         }
-
 
         protected void FixedUpdate()
         {
@@ -51,34 +47,29 @@ namespace Model.MovingObjects
             CurrentTurnForce = turningSpeed * axis;
         }
 
-        public void DescendOneLevel()
+        public void Descend()
         {
             if (DepthChangeLocked)
                 return;
             
-            if (this.LevelManager.TryGetLevelDepth(CurrentLevel + 1, out var depth))
-            {
-                StartCoroutine(ChangeDepth(depth, OneLevelChangeTimeSeconds));
-                CurrentLevel++;
-                DepthChangeLocked = true;
-            }
-        }
-        
-        public void AscendOneLevel()
-        {
-            if (DepthChangeLocked)
-                return;
-            
-            if (this.LevelManager.TryGetLevelDepth(CurrentLevel - 1, out var depth))
-            {
-                StartCoroutine(ChangeDepth(depth, OneLevelChangeTimeSeconds));
-                CurrentLevel--;
-                DepthChangeLocked = true;
-            }
+            DescendOneLayer();
+            StartCoroutine(
+                ChangeDepth(CurrentTargetDepth, OneLevelChangeTimeSeconds));
         }
 
+        public void Ascend()
+        {
+            if (DepthChangeLocked)
+                return;
+            
+            AscendOneLayer();
+            StartCoroutine(
+                ChangeDepth(CurrentTargetDepth, OneLevelChangeTimeSeconds));
+        }
+        
         private IEnumerator ChangeDepth(float targetDepth, float timeSeconds)
         {
+            DepthChangeLocked = true;
             var startPos = this.transform.position;
             var endPos = new Vector3(startPos.x, startPos.y, targetDepth);
             for (float t = 0; t < 1; t += Time.deltaTime / timeSeconds)
@@ -86,6 +77,8 @@ namespace Model.MovingObjects
                 transform.position = Vector3.Lerp(startPos, endPos, t);
                 yield return null;
             }
+
+            transform.position = endPos;
 
             DepthChangeLocked = false;
         }

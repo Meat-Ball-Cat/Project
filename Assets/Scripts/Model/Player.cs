@@ -1,5 +1,7 @@
-﻿using Model.MovingObjects.Ship;
+﻿using System;
+using Model.MovingObjects.Ship;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Model
 {
@@ -34,12 +36,14 @@ namespace Model
                 => _ship.LightEnabled = !_ship.LightEnabled;
 
             _input.PlayerShip.Ascend.performed += 
-                _ => _ship.AscendOneLevel();
+                _ => _ship.Ascend();
 
             _input.PlayerShip.Descend.performed +=
-                _ => _ship.DescendOneLevel();
-
+                _ => _ship.Descend();
         }
+
+        public float CurrentShipDepth
+            => _ship.transform.position.z;
 
         private void OnEnable() => _input?.Enable();
 
