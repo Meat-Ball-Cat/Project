@@ -37,6 +37,8 @@ namespace Model
             var mainCamera = cameraObject.AddComponent<Camera>();
             mainCamera.enabled = true;
             mainCamera.transform.position = new Vector3(0, 0, -10);
+            mainCamera.focalLength = 50;
+            mainCamera.backgroundColor = Color.black;
             cameraObject.transform.SetParent(player.transform);
         }
 
@@ -48,7 +50,7 @@ namespace Model
             _globalLight.intensity = globalLightMaxIntensity;
         }
 
-        private void Update()
+        private void UpdateGlobalLight()
         {
             if (_player.CurrentShipDepth >= setMinIntensityAfterDepth)
                 _globalLight.intensity = globalLightMinIntensity;
@@ -56,6 +58,11 @@ namespace Model
                 _globalLight.intensity
                     = (globalLightMaxIntensity - globalLightMinIntensity) *
                     (1 - _player.CurrentShipDepth / setMinIntensityAfterDepth) + globalLightMinIntensity;
+        }
+
+        private void Update()
+        {
+            UpdateGlobalLight();
         }
     }
 

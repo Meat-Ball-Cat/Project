@@ -20,7 +20,7 @@ namespace Model.Levels
                 _currentLayer = value;
             }
         }
-
+        
         public float CurrentTargetDepth
             => LayerManager.Instance.GetLayerDepth(CurrentLayer);
 

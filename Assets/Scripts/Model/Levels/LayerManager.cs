@@ -14,7 +14,7 @@ namespace Model.Levels
 
         public int MaxLayerCount
             => maxLayerCount;
-
+        
         public static LayerManager Instance
         {
             get
