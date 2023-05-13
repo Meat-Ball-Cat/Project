@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts.Model.Levels;
 using JetBrains.Annotations;
 using Model.HealthSystem;
@@ -10,7 +12,6 @@ namespace Model.Enemies
     public class Chaser : Enemy
     {
         [SerializeField] private float searchRadius = 15;
-        [SerializeField] private float rotationSpeedDegreesByTick = 2;
 
         public override float BaseHp
             => 25;
@@ -44,6 +45,7 @@ namespace Model.Enemies
                 return;
             
             UpdateTargetInfo();
+            MoveToPlayer();
         }
 
         private void MoveToPlayer()
@@ -53,7 +55,36 @@ namespace Model.Enemies
 
             var target = CurrentTarget.transform.position;
             Turn(0); // Костыль, нельзя пока что поворачивать на точку TODO
-            // TODO поворот на врага и движение
+            StartRotating();
+            Move(target - gameObject.transform.position);
+        }
+
+        private Coroutine _lookCoroutine;
+
+        public void StartRotating()
+        {
+            if (_lookCoroutine != null)
+                StopCoroutine(_lookCoroutine);
+
+            _lookCoroutine = StartCoroutine(RotateToTarget());
+        }
+
+        private IEnumerator RotateToTarget()
+        {
+            if (CurrentTarget is null)
+                yield break;
+            
+            var lookRotation = Quaternion.LookRotation(CurrentTarget.transform.position - transform.position);
+
+            float time = 0;
+
+            Quaternion initialRotation = transform.rotation;
+            while (time < 1)
+            {
+                transform.rotation = Quaternion.Slerp(initialRotation, lookRotation, time);
+                time += Time.deltaTime * turningSpeed;
+                yield return null;
+            }
         }
     }
 }
