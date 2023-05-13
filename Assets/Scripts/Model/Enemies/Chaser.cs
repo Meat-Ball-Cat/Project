@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.SymbolStore;
 using Assets.Scripts.Model.Levels;
 using JetBrains.Annotations;
 using Model.HealthSystem;
@@ -29,13 +31,15 @@ namespace Model.Enemies
         {
             if (CurrentTarget is not null || Player is null || GetDistanceToTarget() > searchRadius)
                 return;
-
+            
             CurrentTarget = LayerManager.Instance.CurrentLayer.ContainsObject(gameObject) ? Player.Ship : null;
         }
 
         private void Start()
         {
+            IsAlive = true;
             CurrentHp = BaseHp;
+            LayerManager.Instance.AddObject(this.gameObject);
         }
 
         private void Update()
@@ -52,39 +56,20 @@ namespace Model.Enemies
         {
             if (CurrentTarget is null)
                 return;
-
+            
+            // RotateToTarget();
             var target = CurrentTarget.transform.position;
-            Turn(0); // Костыль, нельзя пока что поворачивать на точку TODO
-            StartRotating();
-            Move(target - gameObject.transform.position);
+            Move((target - gameObject.transform.position).normalized * movementSpeed);
         }
 
         private Coroutine _lookCoroutine;
 
-        public void StartRotating()
-        {
-            if (_lookCoroutine != null)
-                StopCoroutine(_lookCoroutine);
-
-            _lookCoroutine = StartCoroutine(RotateToTarget());
-        }
-
-        private IEnumerator RotateToTarget()
+        private void RotateToTarget()
         {
             if (CurrentTarget is null)
-                yield break;
+                return;
             
-            var lookRotation = Quaternion.LookRotation(CurrentTarget.transform.position - transform.position);
-
-            float time = 0;
-
-            Quaternion initialRotation = transform.rotation;
-            while (time < 1)
-            {
-                transform.rotation = Quaternion.Slerp(initialRotation, lookRotation, time);
-                time += Time.deltaTime * turningSpeed;
-                yield return null;
-            }
+            gameObject.transform.Rotate(CurrentTarget.transform.position);
         }
     }
 }

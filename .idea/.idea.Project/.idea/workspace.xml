@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab9b0b92-996d-4c8d-944b-b38f3fdb3f47" name="Changes" comment="- Added Enemy abstract class&#10;- Started working on Chaser enemy">
+    <list default="true" id="ab9b0b92-996d-4c8d-944b-b38f3fdb3f47" name="Changes" comment="Chaser class finished">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Chaser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Chaser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/MovingObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/MovingObject.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -10,6 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/Enemies/Chaser.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/Levels/LayerManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/Levels/Layered.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/ManagerScript.cs" root0="SKIP_HIGHLIGHTING" />
@@ -93,7 +96,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1683891604866</updated>
-      <workItem from="1683891607109" duration="18889000" />
+      <workItem from="1683891607109" duration="21728000" />
     </task>
     <task id="LOCAL-00001" summary="Removed terrain">
       <created>1683899705584</created>
@@ -116,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683972573881</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Chaser class finished">
+      <created>1683973044945</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683973044945</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +140,7 @@
     <MESSAGE value="Removed terrain" />
     <MESSAGE value="Set camera background" />
     <MESSAGE value="- Added Enemy abstract class&#10;- Started working on Chaser enemy" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added Enemy abstract class&#10;- Started working on Chaser enemy" />
+    <MESSAGE value="Chaser class finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chaser class finished" />
   </component>
 </project>
