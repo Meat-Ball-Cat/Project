@@ -29,5 +29,7 @@ namespace Assets.Scripts.Model.Levels
         }
 
         public bool ContainsObject(GameObject obj) => Objects.Contains(obj);
+
+        public IEnumerable<GameObject> GetObjects() => Objects;
     }
 }

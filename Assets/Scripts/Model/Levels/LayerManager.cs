@@ -15,6 +15,33 @@ namespace Assets.Scripts.Model.Levels
         private readonly List<Layer> _layers = new();
         private Layer _currentLayer;
 
+        internal Layer CurrentLayer { 
+            get => _currentLayer;
+            set
+            {
+                if (!_layers.Contains(value))
+                    throw new ArgumentException();
+                _currentLayer = value;
+
+                var offLayers = _layers.TakeWhile(layer => layer != CurrentLayer);
+                foreach (var layer in offLayers)
+                foreach (var obj in layer.GetObjects())
+                    obj.SetActive(false);
+
+                var onLayers = _layers.SkipWhile(layer => layer != CurrentLayer);
+                foreach (var layer in onLayers)
+                foreach (var obj in layer.GetObjects())
+                    obj.SetActive(true);
+            }
+        }
+
+        public void SetCurrentLayer(int layerId)
+        {
+            if (!TryGetLayer(layerId, out var layer))
+                throw new ArgumentException();
+            CurrentLayer = layer;
+        }
+
         [SerializeField] private GameObject[] _maps;
 
         public static LayerManager Instance

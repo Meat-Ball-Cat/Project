@@ -14,6 +14,7 @@ namespace Model.MovingObjects
         protected float CurrentTurnForce;
 
         public const float OneLevelChangeTimeSeconds = 0.4f;
+        public event EventHandler ChangeLayer;
         
         protected bool DepthChangeLocked { get; private set;  } 
     
@@ -49,11 +50,13 @@ namespace Model.MovingObjects
         public void Descend()
         {
             LayerManager.Instance.ChangeObjectLayer(this, gameObject.layer + 1);
+            ChangeLayer?.Invoke(this, EventArgs.Empty);
         }
 
         public void Ascend()
         {
             LayerManager.Instance.ChangeObjectLayer(this, gameObject.layer - 1);
+            ChangeLayer?.Invoke(this, EventArgs.Empty);
         }
 
         public void ChangeDepth()

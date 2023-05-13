@@ -14,11 +14,10 @@ namespace Model
             globalLightMinIntensity = 0.05f,
             setMinIntensityAfterDepth = 2000f;
 
-        [SerializeField] private Color globalLightColor = Color.white;
+        [SerializeField] private Light2D _globalLight;
 
         private Player _player;
-        private Light2D _globalLight;
-        
+
         private void Awake()
         {
             Helper.Light ??= shipPartLight;
@@ -31,23 +30,15 @@ namespace Model
             player.AddComponent<Player>();
             _player = player.GetComponent<Player>();
 
-            SetupGlobalLight();
+            _globalLight = Instantiate(_globalLight);
 
             var cameraObject = new GameObject("Main camera");
             var mainCamera = cameraObject.AddComponent<Camera>();
             mainCamera.enabled = true;
-            mainCamera.transform.position = new Vector3(0, 0, -10);
+            mainCamera.transform.position = new Vector3(0, 0, -25);
             mainCamera.focalLength = 50;
             mainCamera.backgroundColor = Color.black;
             cameraObject.transform.SetParent(player.transform);
-        }
-
-        private void SetupGlobalLight()
-        {
-            _globalLight = gameObject.AddComponent<Light2D>();
-            _globalLight.lightType = Light2D.LightType.Global;
-            _globalLight.color = globalLightColor;
-            _globalLight.intensity = globalLightMaxIntensity;
         }
 
         private void UpdateGlobalLight()

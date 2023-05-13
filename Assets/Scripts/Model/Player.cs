@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.Model.Levels;
+using Model.MovingObjects;
 using Model.MovingObjects.Ship;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -21,6 +22,8 @@ namespace Model
 
             _ship = new PlayerShipFactory(gameObject).GetShip();
             LayerManager.Instance.AddObject(_ship.gameObject);
+            _ship.ChangeLayer += (obj, arg) =>
+                LayerManager.Instance.SetCurrentLayer(((MovingObject)obj).gameObject.layer);
         
             _input = new Controls();
 
