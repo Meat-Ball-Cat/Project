@@ -75,7 +75,7 @@ namespace Model.MovingObjects.Ship
                 if (connectedPart is null) continue;
                 connectedPart.ConnectedParts.Add(newShipPart);
                 newShipPart.ConnectedParts.Add(connectedPart);
-                Debug.Log(newShipPart + " - " + connectedPart);
+                //Debug.Log(newShipPart + " - " + connectedPart);
             }
 
 

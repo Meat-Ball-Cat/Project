@@ -15,7 +15,7 @@ namespace Assets.Scripts.Model.Levels
         private readonly List<Layer> _layers = new();
         private Layer _currentLayer;
 
-        [SerializeField] private GameObject[] _objects;
+        [SerializeField] private GameObject[] _maps;
 
         public static LayerManager Instance
         {
@@ -31,15 +31,20 @@ namespace Assets.Scripts.Model.Levels
 
         public void GenerateLayers()
         {
+            var layers = new GameObject("Layers");
+            layers.AddComponent<Grid>();
             for (var i = 0; i < layersCount; i++)
             {
                 var newLayer = new Layer(i  + 10);
                 _layers.Add(newLayer);
-                if (_objects == null || _objects.Length <= i || _objects[i] == null) continue;
-                //foreach (var obj in _objects[i])
-                //{
-                //    AddObject(obj, newLayer);
-                //}
+                if (_maps == null || _maps.Length < i) continue;
+
+                if (i > 0)
+                {
+                    var map = Instantiate(_maps[i - 1]);
+                    map.transform.SetParent(layers.transform);
+                    AddObject(map, newLayer);
+                }
             }
         }
 
@@ -62,7 +67,8 @@ namespace Assets.Scripts.Model.Levels
         {
             layer.AddObject(obj);
             ChangeLayer(obj, layer.LayerId);
-            obj.transform.position.Set(obj.transform.position.x,
+            obj.transform.position = new Vector3(
+                obj.transform.position.x,
                 obj.transform.position.y,
                 GetLayerDepth(layer.LayerId));
         }
