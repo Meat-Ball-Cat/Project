@@ -51,6 +51,7 @@ namespace Model.MovingObjects.Ship.ShipParts
             set => gameObject.SetActive(value);
         }
 
+
         public virtual int Width
             => 1;
         public virtual int Height 

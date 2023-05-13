@@ -2,8 +2,8 @@ namespace Model.MovingObjects.Ship.ShipParts.Parts
 {
     internal class Engine : ShipPart, IMoving, ITurning
     {
-        public float MovementSpeed => 3;
-        public float TurningSpeed => 0.2f;
+        public float MovementSpeed => 5;
+        public float TurningSpeed => 1f;
 
         private new void Awake()
         {

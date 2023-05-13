@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Model.MovingObjects.Ship.ShipParts;
 using Model.MovingObjects.Ship.ShipParts.Parts;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Model.MovingObjects.Ship
 {
@@ -16,56 +17,32 @@ namespace Model.MovingObjects.Ship
             _owner = owner;
         }
 
-        public global::Model.MovingObjects.Ship.Ship CreateShip()
+        public Ship CreateShip()
         {
             var ship = _owner.AddComponent<global::Model.MovingObjects.Ship.Ship>();
 
 
-            ship.AddPart(CreateShipPart(typeof(Cockpit)), Vector2Int.zero);
-            ship.AddPart(CreateShipPart(typeof(Spotlight)), new Vector2Int(1, 1));
-            ship.AddPart(CreateShipPart(typeof(Spotlight)), new Vector2Int(1, 0));
-            ship.AddPart(CreateShipPart(typeof(Engine)), new Vector2Int(-1, 0));
-            ship.AddPart(CreateShipPart(typeof(Engine)), new Vector2Int(-1, 1));
+            ship.AddPart(Parts(typeof(Cockpit)), Vector2Int.zero);
+            ship.AddPart(Parts(typeof(Spotlight)), new Vector2Int(1, 1));
+            ship.AddPart(Parts(typeof(Spotlight)), new Vector2Int(1, 0));
+            ship.AddPart(Parts(typeof(Engine)), new Vector2Int(-1, 0));
+            ship.AddPart(Parts(typeof(Engine)), new Vector2Int(-1, 1));
 
             return ship;
         }
 
-        private static ShipPart CreateShipPart(Type partType)
+        private static readonly Dictionary<Type, string> PrefabNames = new()
         {
-            if (!partType.IsSubclassOf(typeof(ShipPart)))
-                throw new ArgumentException();
-
-            var childObject = new GameObject();
-            childObject.AddComponent<BoxCollider2D>();
-            var renderer = childObject.AddComponent<SpriteRenderer>();
-            var part = childObject.AddComponent(partType) as ShipPart;
-
-            renderer.sprite = CreateSprite(Textures[part.GetType()], part.Width, part.Height);
-
-            return part;
-        }
-
-        private static Sprite CreateSprite(Texture2D texture, int width = 1, int height = 1)
-        {
-            return Sprite.Create(texture, 
-                new Rect(0, 0, texture.width, texture.height), 
-                Vector2.one * 0.5f, 
-                Math.Max((float)texture.width / width, (float)texture.height / height));
-        }
-
-        private static readonly Dictionary<Type, Texture2D> Textures = new()
-        {
-            { typeof(Cockpit), CreateTexture(Color.blue) },
-            { typeof(Spotlight), CreateTexture(Color.yellow) },
-            { typeof(Engine), CreateTexture(Color.green) },
+            { typeof(Cockpit), "Cockpit" },
+            { typeof(Spotlight), "Spotlight" },
+            { typeof(Engine), "Engine" },
         };
 
-        private static Texture2D CreateTexture(Color color)
+        private static ShipPart Parts(Type partType)
         {
-            var texture = new Texture2D(1, 1);
-            texture.SetPixels(new [] { color });
-            texture.Apply();
-            return texture;
+            var fileName = PrefabNames[partType];
+            return Object.Instantiate(Resources.Load<GameObject>(fileName)).GetComponent<ShipPart>();
         }
+
     }
 }

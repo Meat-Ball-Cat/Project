@@ -10,8 +10,7 @@ namespace Model.MovingObjects.Ship.ShipParts.Parts
         {
             base.Awake();
 
-            _light = Instantiate(Helper.Light).GetComponent<Light2D>();
-            _light.transform.SetParent(gameObject.transform);
+            _light = GetComponentInChildren<Light2D>();
         }
 
         public void SetLightEnabled(bool enabledLight)

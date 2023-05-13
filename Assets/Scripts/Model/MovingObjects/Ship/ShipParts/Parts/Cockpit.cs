@@ -10,15 +10,15 @@ namespace Model.MovingObjects.Ship.ShipParts.Parts
         {
             base.Awake();
 
-            _light = Instantiate(Helper.Light).GetComponent<Light2D>();
-            _light.pointLightOuterRadius = 5;
-            _light.intensity = 3;
-            _light.transform.SetParent(gameObject.transform);
+            _light = GetComponentInChildren<Light2D>();
 
             IsAlive = true;
         }
 
-        public void SetLightEnabled(bool lightEnabled) => _light.gameObject.SetActive(lightEnabled);
+        public void SetLightEnabled(bool lightEnabled)
+        {
+            _light.enabled = lightEnabled;
+        }
         public float MovementSpeed => 3;
         public float TurningSpeed => 1;
     }
