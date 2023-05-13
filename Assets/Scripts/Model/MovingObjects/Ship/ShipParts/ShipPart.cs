@@ -69,6 +69,7 @@ namespace Model.MovingObjects.Ship.ShipParts
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            Debug.Log($"layer {gameObject.layer} - layer {collision.gameObject.layer}");
             _renderer.color = Color.red;
             HitPoint -= 10;
         }

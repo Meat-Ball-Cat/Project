@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Model.Levels;
 using Model.MovingObjects.Ship;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -19,6 +20,7 @@ namespace Model
             rigidbody.useAutoMass = true;
 
             _ship = new PlayerShipFactory(gameObject).GetShip();
+            LayerManager.Instance.AddObject(_ship.gameObject);
         
             _input = new Controls();
 

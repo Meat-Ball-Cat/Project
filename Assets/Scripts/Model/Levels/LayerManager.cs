@@ -1,20 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Model.MovingObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
-namespace Model.Levels
+namespace Assets.Scripts.Model.Levels
 {
     public class LayerManager : MonoBehaviour
     {
-        [FormerlySerializedAs("levelDepthDifference")] [SerializeField] private float layersDepthDifference = 20;
-        [FormerlySerializedAs("defaultLevelsNumber")] [SerializeField] private int defaultLayersCount = 4;
-        [SerializeField] private int maxLayerCount = 50;
-        private readonly List<HashSet<Layered>> _layers = new();
+        [FormerlySerializedAs("levelDepthDifference")] [SerializeField] private float layersDepthDifference = 2;
+        [FormerlySerializedAs("defaultLevelsNumber")] [SerializeField] private int layersCount = 4;
+        private readonly List<Layer> _layers = new();
+        private Layer _currentLayer;
 
-        public int MaxLayerCount
-            => maxLayerCount;
-        
+        [SerializeField] private GameObject[] _objects;
+
         public static LayerManager Instance
         {
             get
@@ -27,50 +29,94 @@ namespace Model.Levels
             }
         }
 
-        public void GenerateLayers(int number = 1)
+        public void GenerateLayers()
         {
-            if (number <= 0)
-                throw new ArgumentException($"Cannot generate non-positive [{number}] amount of layers.");
-            if (number + _layers.Count > maxLayerCount)
-                throw new 
-                    ArgumentException($"Cannot generate another [{number}] layers, limit is [{maxLayerCount}]");
-
-            for (var i = 0; i < number; i++)
-                _layers.Add(new HashSet<Layered>());
+            for (var i = 0; i < layersCount; i++)
+            {
+                var newLayer = new Layer(i  + 10);
+                _layers.Add(newLayer);
+                if (_objects == null || _objects.Length <= i || _objects[i] == null) continue;
+                //foreach (var obj in _objects[i])
+                //{
+                //    AddObject(obj, newLayer);
+                //}
+            }
         }
 
-        private void Start()
+        private void Awake()
         {
             gameObject.tag = "LayerManager";
-            GenerateLayers(defaultLayersCount);
+            GenerateLayers();
+            _currentLayer = _layers.First();
         }
 
-        public void AddObject(Layered obj, int layer)
+        public void AddObject(GameObject obj, int layerId)
         {
-            if (layer >= _layers.Count)
-                GenerateLayers(defaultLayersCount);
-            if (layer < 0 || layer >= _layers.Count)
-                throw new ArgumentException($"Incorrect layer [{layer}].");
-
-            _layers[layer].Add(obj);
+            if (TryGetLayer(layerId, out var layer))
+            {
+                AddObject(obj, layer);
+            }
         }
 
-        public void ChangeObjectLayer(Layered obj, int newLayer)
+        private void AddObject(GameObject obj, Layer layer)
         {
-            if (newLayer < 0 || newLayer >= _layers.Count)
-                throw new ArgumentException($"Incorrect layer [{newLayer}].");
+            layer.AddObject(obj);
+            ChangeLayer(obj, layer.LayerId);
+            obj.transform.position.Set(obj.transform.position.x,
+                obj.transform.position.y,
+                GetLayerDepth(layer.LayerId));
+        }
 
-            if (!_layers[obj.CurrentLayer].Contains(obj))
+        public virtual void AddObject(GameObject obj)
+        {
+            AddObject(obj, _currentLayer);
+        }
+
+        public bool ChangeObjectLayer(MovingObject obj, int newLayerId)
+        {
+            if (!TryGetLayer(newLayerId, out var newLayer))
+                return false;
+
+            if (!TryGetLayer(obj.gameObject.layer, out var oldLayer) && !oldLayer.ContainsObject(obj.gameObject))
                 throw new ArgumentException($"No such object found.");
 
-            _layers[newLayer].Add(obj);
-            _layers[obj.CurrentLayer].Remove(obj);
+            oldLayer.RemoveObject(obj.gameObject);
+            ChangeLayer(obj.gameObject, newLayer.LayerId);
+            newLayer.AddObject(obj.gameObject);
+            obj.ChangeDepth();
+
+            return true;
         }
 
         public bool LayerExists(int index)
             => index >= 0 && index < _layers.Count;
 
         public float GetLayerDepth(int layerIndex)
-            => layerIndex * layersDepthDifference;
+            => (layerIndex - 10) * layersDepthDifference;
+
+        private bool TryGetLayer(int layerId, out Layer layer)
+        {
+            layer = default;
+
+            var layerNumber = layerId - 10;
+            if (layerNumber < 0 || layerNumber >= _layers.Count)
+                return false;
+            layer = _layers[layerNumber];
+            return true;
+        }
+
+        public static void ChangeLayer(GameObject obj, int layerId)
+        {
+            var objects = new Queue<Transform>();
+            objects.Enqueue(obj.transform);
+
+            while (objects.Count > 0)
+            {
+                var currentObj = objects.Dequeue();
+                currentObj.gameObject.layer = layerId;
+                foreach (Transform child in currentObj.transform)
+                    objects.Enqueue(child);
+            }
+        }
     }
 }

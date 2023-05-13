@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Model.Levels;
+using Assets.Scripts.Model.Levels;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Model.MovingObjects
 {
-    public abstract class MovingObject : Layered, IManagedObject
+    public abstract class MovingObject : MonoBehaviour, IManagedObject
     {
         protected new Rigidbody2D Rigidbody;
         protected Vector2 CurrentMoveForce;
@@ -28,7 +28,6 @@ namespace Model.MovingObjects
         {
             if (!gameObject.TryGetComponent(out Rigidbody))
                 Rigidbody = gameObject.AddComponent<Rigidbody2D>();
-            LayerManager.Instance.AddObject(this, 0);
         }
 
         protected void FixedUpdate()
@@ -49,24 +48,24 @@ namespace Model.MovingObjects
 
         public void Descend()
         {
-            if (DepthChangeLocked)
-                return;
-            
-            DescendOneLayer();
-            StartCoroutine(
-                ChangeDepth(CurrentTargetDepth, OneLevelChangeTimeSeconds));
+            LayerManager.Instance.ChangeObjectLayer(this, gameObject.layer + 1);
         }
 
         public void Ascend()
         {
+            LayerManager.Instance.ChangeObjectLayer(this, gameObject.layer - 1);
+        }
+
+        public void ChangeDepth()
+        {
             if (DepthChangeLocked)
                 return;
-            
-            AscendOneLayer();
+
             StartCoroutine(
-                ChangeDepth(CurrentTargetDepth, OneLevelChangeTimeSeconds));
+                ChangeDepth(LayerManager.Instance.GetLayerDepth(gameObject.layer), OneLevelChangeTimeSeconds));
         }
-        
+
+
         private IEnumerator ChangeDepth(float targetDepth, float timeSeconds)
         {
             DepthChangeLocked = true;
