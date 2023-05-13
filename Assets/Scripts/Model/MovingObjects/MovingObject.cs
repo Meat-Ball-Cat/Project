@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Assets.Scripts.Model.Levels;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,7 +15,7 @@ namespace Model.MovingObjects
         public const float OneLevelChangeTimeSeconds = 0.4f;
         public event EventHandler ChangeLayer;
         
-        protected bool DepthChangeLocked { get; private set;  } 
+        protected bool DepthChangeLocked { get; private set; } 
     
         [FormerlySerializedAs("_movementSpeed")] [SerializeField]
         protected float movementSpeed;

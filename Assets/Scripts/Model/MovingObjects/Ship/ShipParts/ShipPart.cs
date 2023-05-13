@@ -7,7 +7,7 @@ namespace Model.MovingObjects.Ship.ShipParts
 {
     [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(Renderer))]
-    internal abstract class ShipPart : MonoBehaviour
+    public abstract class ShipPart : MonoBehaviour
     {
         private Collider2D _collider;
         private SpriteRenderer _renderer;

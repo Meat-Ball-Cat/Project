@@ -4,7 +4,6 @@ using System.Linq;
 using Model.MovingObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Assets.Scripts.Model.Levels
 {

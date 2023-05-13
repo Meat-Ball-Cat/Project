@@ -7,21 +7,26 @@ using UnityEngine;
 
 namespace Model.MovingObjects.Ship
 {
-    internal class Ship : MovingObject
+    public class Ship : MovingObject
     {
         private GameObject _shipObject;
 
         private Cockpit _cockpit;
 
         private readonly ShipPart[,] _partPositions = new ShipPart[100, 100];
-        private ShipPart PartInPosition(int x, int y) => _partPositions[x + 50, y + 50];
+
+        private ShipPart PartInPosition(int x, int y)
+            => _partPositions[x + 50, y + 50];
+
         private void SetPartInPosition(ShipPart shipPart, int x, int y) 
             => _partPositions[x + 50, y + 50] = shipPart;
 
         private bool _lightEnabled = true;
+
         public bool LightEnabled
         {
-            get => _lightEnabled;
+            get
+                => _lightEnabled;
             set
             {
                 _lightEnabled = value;
@@ -64,29 +69,30 @@ namespace Model.MovingObjects.Ship
 
             for (var i = 0; i < newShipPart.Width; i++)
             for (var j = 0; j < newShipPart.Height; j++)
-            {
                 SetPartInPosition(newShipPart, position.x + i, position.y + j);
-            }
 
 
             foreach (var pos in GetFrame(position, newShipPart.Width, newShipPart.Height))
             {
                 var connectedPart = PartInPosition(pos.x, pos.y);
-                if (connectedPart is null) continue;
+                if (connectedPart is null)
+                    continue;
+
                 connectedPart.ConnectedParts.Add(newShipPart);
                 newShipPart.ConnectedParts.Add(connectedPart);
                 //Debug.Log(newShipPart + " - " + connectedPart);
             }
 
 
-            newShipPart.gameObject.transform.SetParent(_shipObject.transform);
-            newShipPart.gameObject.transform.position = (Vector2)position;
-            newShipPart.gameObject.layer = _shipObject.layer;
+            GameObject o;
+            (o = newShipPart.gameObject).transform.SetParent(_shipObject.transform);
+            o.transform.position = (Vector2)position;
+            o.layer = _shipObject.layer;
 
             newShipPart.Died += Die;
-            newShipPart.Died += (obj, e)
+            newShipPart.Died += (_, _)
                 => UpdateMovementSpeed();
-            newShipPart.Died += (obj, e)
+            newShipPart.Died += (_, _)
                 => UpdateTurningSpeed();
 
             UpdateMovementSpeed();
@@ -103,7 +109,7 @@ namespace Model.MovingObjects.Ship
         /// P.S. В этом методе убиваются ненужные объекты, тем самым вызывается событие Die у этого объекта
         /// Каждый раз в обработчике строится обходится граф, что не очень, но эта штука вызывается не часто
         /// так что пока сойдет
-        public void Die(object sender, EventArgs e)
+        private void Die(object sender, EventArgs e)
         {
             if (sender is Cockpit)
             {
@@ -112,7 +118,9 @@ namespace Model.MovingObjects.Ship
                 return;
             }
 
-            if (sender is not ShipPart diedPart) throw new ArgumentException();
+            if (sender is not ShipPart diedPart)
+                throw new ArgumentException();
+
             var diedParts = GetPart(diedPart, true);
             diedParts.ExceptWith(GetPart(_cockpit, false));
             foreach (var part in diedParts.Where(part => part.IsAlive))
@@ -148,7 +156,7 @@ namespace Model.MovingObjects.Ship
         }
 
         // Создать хэлпер и утащить туда
-        public static IEnumerable<Vector2Int> GetFrame(Vector2Int position, int width, int height)
+        private static IEnumerable<Vector2Int> GetFrame(Vector2Int position, int width, int height)
         {
             for (var i = 0; i < width; i++)
             {
@@ -165,20 +173,24 @@ namespace Model.MovingObjects.Ship
 
         // Это тоже можно в хэлпер
         // Сделано кривовато
-        public static ISet<ShipPart> GetPart(ShipPart start, bool goOffPart)
+        private static ISet<ShipPart> GetPart(ShipPart start, bool goOffPart)
         {
             var parts = new HashSet<ShipPart>();
             var partQueue = new Queue<ShipPart>();
 
-            if (start == null) return parts;
+            if (start == null)
+                return parts;
 
             partQueue.Enqueue(start);
 
             while (partQueue.Count > 0)
             {
                 var currentPart = partQueue.Dequeue();
-                if (!goOffPart && !currentPart.IsAlive) continue;
-                if (parts.Contains(currentPart)) continue;
+                if (!goOffPart && !currentPart.IsAlive)
+                    continue;
+                if (parts.Contains(currentPart))
+                    continue;
+
                 parts.Add(currentPart);
                 foreach (var part in currentPart.ConnectedParts)
                     partQueue.Enqueue(part);

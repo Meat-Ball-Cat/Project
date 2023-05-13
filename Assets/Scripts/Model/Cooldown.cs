@@ -35,9 +35,8 @@ namespace Model
         /// <param name="delayMS"></param>
         public void DelayedStart(int delayMS)
         {
-            if (delayMS >= _cooldownMS)
-                throw new ArgumentException("Cooldown delay cannot be larger than the actual cooldown.");
-
+            if (delayMS < 0)
+                throw new ArgumentException("Cannot set negative cooldown delay.");
             _delay = delayMS;
             _stopwatch.Restart();
         }

@@ -7,9 +7,9 @@ using UnityEngine.Rendering.Universal;
 
 namespace Model
 {
-    internal class Player : MonoBehaviour
+    public class Player : MonoBehaviour
     {
-        private Ship _ship;
+        public Ship Ship { get; private set; }
         private Controls _input;
 
         private void Awake()
@@ -20,35 +20,35 @@ namespace Model
             rigidbody.gravityScale = 0;
             rigidbody.useAutoMass = true;
 
-            _ship = new PlayerShipFactory(gameObject).GetShip();
-            LayerManager.Instance.AddObject(_ship.gameObject);
-            _ship.ChangeLayer += (obj, arg) =>
+            Ship = new PlayerShipFactory(gameObject).GetShip();
+            LayerManager.Instance.AddObject(Ship.gameObject);
+            Ship.ChangeLayer += (obj, arg) =>
                 LayerManager.Instance.SetCurrentLayer(((MovingObject)obj).gameObject.layer);
         
             _input = new Controls();
 
             _input.PlayerShip.Move.performed += context 
-                => _ship.Move(context.ReadValue<Vector2>());
+                => Ship.Move(context.ReadValue<Vector2>());
             _input.PlayerShip.Move.canceled += _ 
-                => _ship.Move(Vector2.zero);
+                => Ship.Move(Vector2.zero);
 
             _input.PlayerShip.Turn.performed += context 
-                => _ship.Turn(context.ReadValue<float>());
+                => Ship.Turn(context.ReadValue<float>());
             _input.PlayerShip.Turn.canceled += _ 
-                => _ship.Turn(0);
+                => Ship.Turn(0);
 
             _input.PlayerShip.Light.canceled += _ 
-                => _ship.LightEnabled = !_ship.LightEnabled;
+                => Ship.LightEnabled = !Ship.LightEnabled;
 
             _input.PlayerShip.Ascend.performed += 
-                _ => _ship.Ascend();
+                _ => Ship.Ascend();
 
             _input.PlayerShip.Descend.performed +=
-                _ => _ship.Descend();
+                _ => Ship.Descend();
         }
 
         public float CurrentShipDepth
-            => _ship.transform.position.z;
+            => Ship.transform.position.z;
 
         private void OnEnable() => _input?.Enable();
 
