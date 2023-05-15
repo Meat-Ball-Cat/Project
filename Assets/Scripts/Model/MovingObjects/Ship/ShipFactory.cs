@@ -43,6 +43,5 @@ namespace Model.MovingObjects.Ship
             var fileName = PrefabNames[partType];
             return Object.Instantiate(Resources.Load<GameObject>(fileName)).GetComponent<ShipPart>();
         }
-
     }
 }
