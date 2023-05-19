@@ -1,4 +1,3 @@
-using System;
 using JetBrains.Annotations;
 using Model.HealthSystem;
 using Model.MovingObjects;
@@ -14,7 +13,7 @@ namespace Model.Enemies
         [CanBeNull] public abstract MovingObject CurrentTarget { get; protected set; }
 
         [CanBeNull]
-        public static Player Player
+        protected static Player Player
             => GameObject.FindWithTag("Player")?.GetComponent<Player>();
 
         [SerializeField] protected float minDistanceFromPlayerToSpawn = 60;

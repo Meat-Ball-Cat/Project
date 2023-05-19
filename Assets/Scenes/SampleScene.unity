@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layersDepthDifference: 11
   layersCount: 4
-  _maps:
+  maps:
   - {fileID: 2139927913323223736, guid: 89a51f1375b63284cb95d8b9c3597a13, type: 3}
   - {fileID: 4944000398376204198, guid: b1bd919522a66534b9aa8b76121ba850, type: 3}
   - {fileID: 6567589629281755119, guid: d7c33d2e849979e48a7b7e6720c6de45, type: 3}
@@ -319,6 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 8657767972901162499, guid: 1e5059148d3dab62982444b698dca196, type: 3}
+  enemyCooldownMs: 12000
 --- !u!4 &1732072813
 Transform:
   m_ObjectHideFlags: 0
@@ -364,10 +365,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipPartLight: {fileID: 474761987704276922, guid: dfb0c3b7869deac4a9e472896cf69ac5, type: 3}
-  globalLightMaxIntensity: 1
+  globalLightMaxIntensity: 0.3
   globalLightMinIntensity: 0.05
   setMinIntensityAfterDepth: 26
-  _globalLight: {fileID: 2567255534486795683, guid: 64103a8fea0837a4cb56b60d626d678e, type: 3}
+  globalLight: {fileID: 2567255534486795683, guid: 64103a8fea0837a4cb56b60d626d678e, type: 3}
 --- !u!4 &1974987120
 Transform:
   m_ObjectHideFlags: 0

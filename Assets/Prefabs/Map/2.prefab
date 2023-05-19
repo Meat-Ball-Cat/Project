@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8884651543061836013}
   - component: {fileID: 664171502303419034}
   - component: {fileID: 1842836051077204008}
+  - component: {fileID: 512463826094298753}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -24836,6 +24837,36 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
+--- !u!114 &512463826094298753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505852113558892828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 05685e48b50de024e99b2797f370b682c10c3d8400000000
+  m_ShapePath:
+  - {x: -29.003143, y: -33.003143, z: 0}
+  - {x: -29.003143, y: 35.003143, z: 0}
+  - {x: 48.003143, y: 35.003143, z: 0}
+  - {x: 48.003143, y: -33.003143, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -64628
+  m_LocalBounds:
+    m_Center: {x: 9.5, y: 1, z: 0}
+    m_Extent: {x: 38.503143, y: 34.003143, z: 0}
 --- !u!1 &4944000398376204198
 GameObject:
   m_ObjectHideFlags: 0

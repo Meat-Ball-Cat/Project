@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Model.Levels
@@ -10,26 +6,28 @@ namespace Assets.Scripts.Model.Levels
     public class Layer
     {
         public readonly int LayerId;
-        private readonly HashSet<GameObject> Objects;
+        private readonly HashSet<GameObject> _objects;
 
         public Layer(int layerId)
         {
             LayerId = layerId;
-            Objects = new HashSet<GameObject>();
+            _objects = new HashSet<GameObject>();
         }
 
         public void AddObject(GameObject obj)
         {
-            Objects.Add(obj);
+            _objects.Add(obj);
         }
 
         public void RemoveObject(GameObject obj)
         {
-            Objects.Remove(obj);
+            _objects.Remove(obj);
         }
 
-        public bool ContainsObject(GameObject obj) => Objects.Contains(obj);
+        public bool ContainsObject(GameObject obj)
+            => _objects.Contains(obj);
 
-        public IEnumerable<GameObject> GetObjects() => Objects;
+        public IEnumerable<GameObject> GetObjects()
+            => _objects;
     }
 }

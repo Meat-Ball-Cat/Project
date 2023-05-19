@@ -1,25 +1,37 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Model.MovingObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Assets.Scripts.Model.Levels
 {
-    public class LayerManager : MonoBehaviour
+    public sealed class LayerManager : MonoBehaviour
     {
-        [FormerlySerializedAs("levelDepthDifference")] [SerializeField] private float layersDepthDifference = 2;
-        [FormerlySerializedAs("defaultLevelsNumber")] [SerializeField] private int layersCount = 4;
+        [FormerlySerializedAs("levelDepthDifference")] [SerializeField]
+        private float layersDepthDifference = 2;
+
+        [FormerlySerializedAs("defaultLevelsNumber")] [SerializeField]
+        private int layersCount = 4;
+
         private readonly List<Layer> _layers = new();
         private Layer _currentLayer;
 
-        internal Layer CurrentLayer { 
-            get => _currentLayer;
-            set
+        [NotNull]
+        internal Layer CurrentLayer
+        { 
+            get
+                => _currentLayer;
+            
+            private set
             {
+                if (value == null)
+                    throw new ArgumentNullException(nameof(value));
                 if (!_layers.Contains(value))
                     throw new ArgumentException();
+
                 _currentLayer = value;
 
                 var offLayers = _layers.TakeWhile(layer => layer != CurrentLayer);
@@ -38,10 +50,12 @@ namespace Assets.Scripts.Model.Levels
         {
             if (!TryGetLayer(layerId, out var layer))
                 throw new ArgumentException();
+
             CurrentLayer = layer;
         }
 
-        [SerializeField] private GameObject[] _maps;
+        [FormerlySerializedAs("_maps")] [SerializeField]
+        private GameObject[] maps;
 
         public static LayerManager Instance
         {
@@ -55,22 +69,22 @@ namespace Assets.Scripts.Model.Levels
             }
         }
 
-        public void GenerateLayers()
+        private void GenerateLayers()
         {
             var layers = new GameObject("Layers");
             layers.AddComponent<Grid>();
             for (var i = 0; i < layersCount; i++)
             {
-                var newLayer = new Layer(i  + 10);
+                var newLayer = new Layer(i + 10);
                 _layers.Add(newLayer);
-                if (_maps == null || _maps.Length < i) continue;
+                if (maps == null || maps.Length < i)
+                    continue;
 
-                if (i > 0)
-                {
-                    var map = Instantiate(_maps[i - 1]);
-                    map.transform.SetParent(layers.transform);
-                    AddObject(map, newLayer);
-                }
+                if (i <= 0)
+                    continue;
+
+                var map = Instantiate(maps[i - 1], layers.transform, true);
+                AddObject(map, newLayer);
             }
         }
 
@@ -84,22 +98,22 @@ namespace Assets.Scripts.Model.Levels
         public void AddObject(GameObject obj, int layerId)
         {
             if (TryGetLayer(layerId, out var layer))
-            {
                 AddObject(obj, layer);
-            }
         }
 
         private void AddObject(GameObject obj, Layer layer)
         {
             layer.AddObject(obj);
             ChangeLayer(obj, layer.LayerId);
-            obj.transform.position = new Vector3(
-                obj.transform.position.x,
-                obj.transform.position.y,
+            var position = obj.transform.position;
+            position = new Vector3(
+                position.x,
+                position.y,
                 GetLayerDepth(layer.LayerId));
+            obj.transform.position = position;
         }
 
-        public virtual void AddObject(GameObject obj)
+        public void AddObject(GameObject obj)
         {
             AddObject(obj, _currentLayer);
         }
@@ -110,7 +124,7 @@ namespace Assets.Scripts.Model.Levels
                 return false;
 
             if (!TryGetLayer(obj.gameObject.layer, out var oldLayer) && !oldLayer.ContainsObject(obj.gameObject))
-                throw new ArgumentException($"No such object found.");
+                throw new ArgumentException("No such object found.");
 
             oldLayer.RemoveObject(obj.gameObject);
             ChangeLayer(obj.gameObject, newLayer.LayerId);
@@ -133,11 +147,12 @@ namespace Assets.Scripts.Model.Levels
             var layerNumber = layerId - 10;
             if (layerNumber < 0 || layerNumber >= _layers.Count)
                 return false;
+
             layer = _layers[layerNumber];
             return true;
         }
 
-        public static void ChangeLayer(GameObject obj, int layerId)
+        private static void ChangeLayer(GameObject obj, int layerId)
         {
             var objects = new Queue<Transform>();
             objects.Enqueue(obj.transform);

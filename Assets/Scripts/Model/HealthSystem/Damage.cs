@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Model.HealthSystem
 {
-    public class Damage
+    public sealed class Damage
     {
         private readonly Dictionary<DamageType, float> _damages;
 

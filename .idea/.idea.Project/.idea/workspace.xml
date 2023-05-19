@@ -4,15 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab9b0b92-996d-4c8d-944b-b38f3fdb3f47" name="Changes" comment="Chaser class finished">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/EnemyManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/EnemyManager.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project/.idea/indexLayout.xml" beforeDir="false" />
+    <list default="true" id="ab9b0b92-996d-4c8d-944b-b38f3fdb3f47" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Global light.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Global light.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Map/1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Map/1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Map/2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Map/2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Map/3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Map/3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Cooldown.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Cooldown.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Chaser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Chaser.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Enemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/EnemyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/EnemyManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/HealthSystem/Damage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/HealthSystem/Damage.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Levels/Layer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Levels/Layer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Levels/LayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Levels/LayerManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/ManagerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/ManagerScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/MovingObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/MovingObject.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,53 +27,48 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Mikhail Kozlov &lt;kozlov_ma@icloud.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/Enemies/Chaser.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/Levels/LayerManager.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/Levels/Layered.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/ManagerScript.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/MovingObjects/IManagedObject.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://diff.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://diff.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://diff.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://diff.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://diff.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://diff.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/kozlov/RiderProjects/Project/Assets/Scenes/SampleScene.unity" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="SWEA" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2PgvaZZtpYwVcWL75a5SaVOjL2r" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "SolutionBuilderGeneralOptionsPage",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;SolutionBuilderGeneralOptionsPage&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/home/kozlov/.config/JetBrains/Rider2023.1/resharper-host/DecompilerCache",
-      "/home/kozlov/.config/JetBrains/Rider2023.1/resharper-host/SourcesCache",
-      "/home/kozlov/.local/share/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/home/kozlov/.config/JetBrains/Rider2023.1/resharper-host/DecompilerCache&quot;,
+      &quot;/home/kozlov/.config/JetBrains/Rider2023.1/resharper-host/SourcesCache&quot;,
+      &quot;/home/kozlov/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$USER_HOME$/Unity/Hub/Editor/2021.3.20f1/Editor/Unity" />
@@ -122,7 +124,8 @@
       <option name="presentableId" value="Default" />
       <updated>1683891604866</updated>
       <workItem from="1683891607109" duration="21728000" />
-      <workItem from="1684497523361" duration="5854000" />
+      <workItem from="1684497523361" duration="6677000" />
+      <workItem from="1684504258959" duration="1608000" />
     </task>
     <task id="LOCAL-00001" summary="Removed terrain">
       <created>1683899705584</created>
@@ -152,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683973044945</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added EnemySpawner">
+      <created>1684503574127</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1684503574127</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,6 +177,7 @@
     <MESSAGE value="Set camera background" />
     <MESSAGE value="- Added Enemy abstract class&#10;- Started working on Chaser enemy" />
     <MESSAGE value="Chaser class finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chaser class finished" />
+    <MESSAGE value="Added EnemySpawner" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added EnemySpawner" />
   </component>
 </project>

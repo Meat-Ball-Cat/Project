@@ -1,13 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics.SymbolStore;
 using Assets.Scripts.Model.Levels;
 using JetBrains.Annotations;
 using Model.HealthSystem;
 using Model.MovingObjects;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Model.Enemies

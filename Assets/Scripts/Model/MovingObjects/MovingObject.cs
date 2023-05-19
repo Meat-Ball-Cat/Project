@@ -8,11 +8,11 @@ namespace Model.MovingObjects
 {
     public abstract class MovingObject : MonoBehaviour, IManagedObject
     {
-        protected new Rigidbody2D Rigidbody;
+        protected Rigidbody2D Rigidbody;
         protected Vector2 CurrentMoveForce;
         protected float CurrentTurnForce;
 
-        public const float OneLevelChangeTimeSeconds = 0.4f;
+        [SerializeField] private float oneLevelChangeTimeSeconds = 0.4f;
         public event EventHandler ChangeLayer;
         
         protected bool DepthChangeLocked { get; private set; } 
@@ -64,7 +64,7 @@ namespace Model.MovingObjects
                 return;
 
             StartCoroutine(
-                ChangeDepth(LayerManager.Instance.GetLayerDepth(gameObject.layer), OneLevelChangeTimeSeconds));
+                ChangeDepth(LayerManager.Instance.GetLayerDepth(gameObject.layer), oneLevelChangeTimeSeconds));
         }
 
 

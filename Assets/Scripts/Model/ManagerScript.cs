@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
@@ -14,7 +13,8 @@ namespace Model
             globalLightMinIntensity = 0.05f,
             setMinIntensityAfterDepth = 2000f;
 
-        [SerializeField] private Light2D _globalLight;
+        [FormerlySerializedAs("_globalLight")] [SerializeField]
+        private Light2D globalLight;
 
         private Player _player;
 
@@ -31,7 +31,7 @@ namespace Model
             player.tag = "Player";
             _player = player.GetComponent<Player>();
 
-            _globalLight = Instantiate(_globalLight);
+            globalLight = Instantiate(globalLight);
 
             var cameraObject = new GameObject("Main camera");
             var mainCamera = cameraObject.AddComponent<Camera>();
@@ -45,9 +45,9 @@ namespace Model
         private void UpdateGlobalLight()
         {
             if (_player.CurrentShipDepth >= setMinIntensityAfterDepth)
-                _globalLight.intensity = globalLightMinIntensity;
+                globalLight.intensity = globalLightMinIntensity;
             else
-                _globalLight.intensity
+                globalLight.intensity
                     = (globalLightMaxIntensity - globalLightMinIntensity) *
                     (1 - _player.CurrentShipDepth / setMinIntensityAfterDepth) + globalLightMinIntensity;
         }

@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Assets.Scripts.Model.Levels;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = System.Random;
 
 namespace Model.Enemies
@@ -13,11 +11,17 @@ namespace Model.Enemies
     {
         [SerializeField] private GameObject[] enemies;
 
-        private Dictionary<Layer, HashSet<Enemy>> _layers = new();
-        private Dictionary<Type, int> _enemyCounter = new();
-        
-        private Cooldown _enemyCooldown = new(12000); // TODO переделать в SerializeField
-        private Random _random = new();
+        private readonly Dictionary<Layer, HashSet<Enemy>> _layers = new();
+        private readonly Dictionary<Type, int> _enemyCounter = new();
+
+        [SerializeField] private int enemyCooldownMs = 12000;
+        private Cooldown _enemyCooldown;
+        private readonly Random _random = new();
+
+        private void Awake()
+        {
+            _enemyCooldown = new(enemyCooldownMs);
+        }
 
         private void Update()
         {
@@ -61,7 +65,7 @@ namespace Model.Enemies
                     if (enemyData is null)
                         throw new InvalidOperationException(
                             $"Enemy {enemyPrefab} doesn't have component derived from 'Enemy'" +
-                            $" and cannot be managed by EnemyManager.");
+                            " and cannot be managed by EnemyManager.");
                 
                     if (GetEnemyCount(enemyData) > enemyData.MaxNumberOnMap)
                         continue;

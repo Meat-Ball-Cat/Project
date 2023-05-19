@@ -3,7 +3,6 @@ using System.Diagnostics;
 
 namespace Model
 {
-    //TODO переделать на тики
     public class Cooldown
     {
         private readonly int _cooldownMS;
