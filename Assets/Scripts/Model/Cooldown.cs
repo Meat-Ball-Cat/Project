@@ -37,6 +37,10 @@ namespace Model
         {
             if (delayMS < 0)
                 throw new ArgumentException("Cannot set negative cooldown delay.");
+
+            if (CoolingDown)
+                return;
+            
             _delay = delayMS;
             _stopwatch.Restart();
         }

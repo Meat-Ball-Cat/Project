@@ -7,13 +7,14 @@ using Assets.Scripts.Model.Levels;
 using JetBrains.Annotations;
 using Model.HealthSystem;
 using Model.MovingObjects;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Model.Enemies
 {
     public class Chaser : Enemy
     {
-        [SerializeField] private float searchRadius = 15;
+        [SerializeField] private float searchRadius = 30;
 
         public override float BaseHp
             => 25;
@@ -21,7 +22,7 @@ namespace Model.Enemies
         public override float CurrentHp { get; protected set; }
         [CanBeNull] public override MovingObject CurrentTarget { get; protected set; }
         public override bool IsAlive { get; protected set; }
-        
+
         public override void TakeDamage(Damage damage)
         {
             CurrentHp -= damage.GetDamageValueExcept(DamageType.Collision);
@@ -58,8 +59,13 @@ namespace Model.Enemies
                 return;
             
             // RotateToTarget();
-            var target = CurrentTarget.transform.position;
-            Move((target - gameObject.transform.position).normalized * movementSpeed);
+            // var currentRotation = gameObject.transform.rotation.eulerAngles.z * Math.PI / 180;
+            // Move(new Vector2((float)Math.Cos(currentRotation),
+                // (float)Math.Sin(currentRotation)) * movementSpeed);
+
+            var target = CurrentTarget.transform.position - transform.position;
+            Rigidbody.velocity /= 45;
+            Move(new Vector2(target.x, target.y));
         }
 
         private Coroutine _lookCoroutine;
@@ -68,8 +74,9 @@ namespace Model.Enemies
         {
             if (CurrentTarget is null)
                 return;
-            
-            gameObject.transform.Rotate(CurrentTarget.transform.position);
+
+            var lookAt = CurrentTarget.transform.position;
+            gameObject.transform.LookAt(lookAt);
         }
     }
 }

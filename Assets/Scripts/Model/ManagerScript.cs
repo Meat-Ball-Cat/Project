@@ -28,6 +28,7 @@ namespace Model
             };
         
             player.AddComponent<Player>();
+            player.tag = "Player";
             _player = player.GetComponent<Player>();
 
             _globalLight = Instantiate(_globalLight);

@@ -14,10 +14,22 @@ namespace Model.Enemies
         [CanBeNull] public abstract MovingObject CurrentTarget { get; protected set; }
 
         [CanBeNull]
-        protected static Player Player
+        public static Player Player
             => GameObject.FindWithTag("Player")?.GetComponent<Player>();
 
-        [SerializeField] protected float minDistanceFromPlayerToSpawn = 15;
+        [SerializeField] protected float minDistanceFromPlayerToSpawn = 60;
+
+        public float MinDistanceFromPlayerToSpawn
+            => minDistanceFromPlayerToSpawn;
+
+        public int MaxNumberOnMap
+            => maxNumberOnMap;
+
+        public float DistanceToDespawn
+            => distanceToDespawn;
+
+        [SerializeField] protected int maxNumberOnMap = 40;
+        [SerializeField] protected float distanceToDespawn = 100;
 
         public abstract bool IsAlive
         {
@@ -33,7 +45,7 @@ namespace Model.Enemies
 
         public abstract void TakeDamage(Damage damage);
 
-        protected float? GetDistanceToTarget()
+        public float? GetDistanceToTarget()
         {
             if (CurrentTarget is null)
                 return null;

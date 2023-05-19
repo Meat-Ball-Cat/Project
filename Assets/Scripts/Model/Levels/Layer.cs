@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Model.Levels
 {
-    internal class Layer
+    public class Layer
     {
         public readonly int LayerId;
         private readonly HashSet<GameObject> Objects;
