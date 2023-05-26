@@ -27,24 +27,26 @@ namespace Model
         
             _input = new Controls();
 
-            _input.PlayerShip.Move.performed += context 
-                => Ship.Move(context.ReadValue<Vector2>());
-            _input.PlayerShip.Move.canceled += _ 
-                => Ship.Move(Vector2.zero);
+            _input.PlayerShip.Move.performed 
+                += context => Ship.Move(context.ReadValue<Vector2>());
+            _input.PlayerShip.Move.canceled 
+                += _ => Ship.Move(Vector2.zero);
 
-            _input.PlayerShip.Turn.performed += context 
-                => Ship.Turn(context.ReadValue<float>());
-            _input.PlayerShip.Turn.canceled += _ 
-                => Ship.Turn(0);
+            _input.PlayerShip.Turn.performed 
+                += context => Ship.Turn(context.ReadValue<float>());
+            _input.PlayerShip.Turn.canceled 
+                += _ => Ship.Turn(0);
 
-            _input.PlayerShip.Light.canceled += _ 
-                => Ship.LightEnabled = !Ship.LightEnabled;
+            _input.PlayerShip.Light.canceled 
+                += _ => Ship.LightEnabled = !Ship.LightEnabled;
 
-            _input.PlayerShip.Ascend.performed += 
-                _ => Ship.Ascend();
+            _input.PlayerShip.Ascend.performed 
+                += _ => Ship.Ascend();
 
-            _input.PlayerShip.Descend.performed +=
-                _ => Ship.Descend();
+            _input.PlayerShip.Descend.performed 
+                += _ => Ship.Descend();
+
+            _input.PlayerShip.Shoot.performed += _ => Ship.Shoot();
         }
 
         public float CurrentShipDepth

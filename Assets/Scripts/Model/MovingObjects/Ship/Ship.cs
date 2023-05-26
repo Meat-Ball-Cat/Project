@@ -30,7 +30,7 @@ namespace Model.MovingObjects.Ship
             set
             {
                 _lightEnabled = value;
-                foreach (var partLight in GetPart(_cockpit, false).OfType<ILight>())
+                foreach (var partLight in FindJoinedParts(_cockpit, false).OfType<ILight>())
                     partLight.SetLightEnabled(_lightEnabled);
             }
         }
@@ -113,7 +113,7 @@ namespace Model.MovingObjects.Ship
         {
             if (sender is Cockpit)
             {
-                foreach (var part in GetPart(_cockpit, true))
+                foreach (var part in FindJoinedParts(_cockpit, true))
                     part.Die();
                 return;
             }
@@ -121,8 +121,8 @@ namespace Model.MovingObjects.Ship
             if (sender is not ShipPart diedPart)
                 throw new ArgumentException();
 
-            var diedParts = GetPart(diedPart, true);
-            diedParts.ExceptWith(GetPart(_cockpit, false));
+            var diedParts = FindJoinedParts(diedPart, true);
+            diedParts.ExceptWith(FindJoinedParts(_cockpit, false));
             foreach (var part in diedParts.Where(part => part.IsAlive))
                 part.Die();
         }
@@ -132,7 +132,7 @@ namespace Model.MovingObjects.Ship
         /// </summary>
         private void UpdateMovementSpeed()
         {
-            movementSpeed = GetPart(_cockpit, false)
+            movementSpeed = FindJoinedParts(_cockpit, false)
                 .OfType<IMoving>()
                 .Select(part => part.MovementSpeed)
                 .Sum();
@@ -143,7 +143,7 @@ namespace Model.MovingObjects.Ship
         /// </summary>
         private void UpdateTurningSpeed()
         {
-            turningSpeed = GetPart(_cockpit, false)
+            turningSpeed = FindJoinedParts(_cockpit, false)
                 .OfType<ITurning>()
                 .Select(part => part.TurningSpeed)
                 .Sum();
@@ -151,7 +151,7 @@ namespace Model.MovingObjects.Ship
 
         private void ActivateShipParts()
         {
-            foreach (var connectedPart in GetPart(_cockpit, true))
+            foreach (var connectedPart in FindJoinedParts(_cockpit, true))
                 connectedPart.IsAlive = true;
         }
 
@@ -173,7 +173,7 @@ namespace Model.MovingObjects.Ship
 
         // Это тоже можно в хэлпер
         // Сделано кривовато
-        private static ISet<ShipPart> GetPart(ShipPart start, bool goOffPart)
+        private static HashSet<ShipPart> FindJoinedParts(ShipPart start, bool goOffPart)
         {
             var parts = new HashSet<ShipPart>();
             var partQueue = new Queue<ShipPart>();
@@ -197,6 +197,12 @@ namespace Model.MovingObjects.Ship
             }
 
             return parts;
+        }
+
+        public void Shoot()
+        {
+            foreach (var turret in FindJoinedParts(_cockpit, false).OfType<Turret>())
+                turret.Shoot();
         }
     }
 }

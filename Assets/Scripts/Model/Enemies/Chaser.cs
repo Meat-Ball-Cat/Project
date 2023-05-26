@@ -20,6 +20,8 @@ namespace Model.Enemies
         public override void TakeDamage(Damage damage)
         {
             CurrentHp -= damage.GetDamageValueExcept(DamageType.Collision);
+            CurrentHp -= damage.GetDamageValue(DamageType.Collision) * 0.4f;
+            EnsureAlive();
         }
 
         private void UpdateTargetInfo()
@@ -41,7 +43,11 @@ namespace Model.Enemies
         {
             EnsureAlive();
             if (!IsAlive)
+            {
+                //TODO Удалять из LayerManager и других мест FIXME
+                Destroy(gameObject);
                 return;
+            }
             
             UpdateTargetInfo();
             MoveToPlayer();

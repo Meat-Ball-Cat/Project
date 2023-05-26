@@ -14,8 +14,8 @@ namespace Model.HealthSystem
                 .ToDictionary(damage => damage.Item1, damage => damage.Item2);
         }
 
-        public float GetDamageValue(params DamageType[] type)
-            => type.Sum(dt => _damages[dt]);
+        public float GetDamageValue(params DamageType[] types)
+            => types.Where(dt => _damages.ContainsKey(dt)).Sum(dt => _damages[dt]);
 
         public float GetDamageValueExcept(params DamageType[] except)
             => ((DamageType[])Enum.GetValues(typeof(DamageType)))

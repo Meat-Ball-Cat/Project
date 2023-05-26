@@ -27,6 +27,8 @@ namespace Model.MovingObjects.Ship
             ship.AddPart(Parts(typeof(Spotlight)), new Vector2Int(1, 0));
             ship.AddPart(Parts(typeof(Engine)), new Vector2Int(-1, 0));
             ship.AddPart(Parts(typeof(Engine)), new Vector2Int(-1, 1));
+            ship.AddPart(Parts(typeof(Turret)), new Vector2Int(1, 2));
+            ship.AddPart(Parts(typeof(Turret)), new Vector2Int(-1, 2));
 
             return ship;
         }
@@ -36,6 +38,7 @@ namespace Model.MovingObjects.Ship
             { typeof(Cockpit), "Cockpit" },
             { typeof(Spotlight), "Spotlight" },
             { typeof(Engine), "Engine" },
+            { typeof(Turret), "Turret" },
         };
 
         private static ShipPart Parts(Type partType)

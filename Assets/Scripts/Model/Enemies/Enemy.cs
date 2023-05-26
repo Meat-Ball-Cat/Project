@@ -1,3 +1,5 @@
+using System;
+using Assets.Scripts.Model.Levels;
 using JetBrains.Annotations;
 using Model.HealthSystem;
 using Model.MovingObjects;
@@ -38,8 +40,11 @@ namespace Model.Enemies
 
         public virtual void EnsureAlive()
         {
-            if (CurrentHp < 0 || IsAlive == false)
-                IsAlive = false;
+            if (!(CurrentHp < 0) && IsAlive != false)
+                return;
+            
+            IsAlive = false;
+            //TODO удалять со слоя после смерти
         }
 
         public abstract void TakeDamage(Damage damage);

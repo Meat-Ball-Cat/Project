@@ -71,6 +71,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""48b7e0f6-0569-4860-b11c-d5c8995bbc46"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Ascend"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""addc1b37-ccf8-45f5-96b0-0a9cdd60a53a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +205,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_PlayerShip_Light = m_PlayerShip.FindAction("Light", throwIfNotFound: true);
         m_PlayerShip_Descend = m_PlayerShip.FindAction("Descend", throwIfNotFound: true);
         m_PlayerShip_Ascend = m_PlayerShip.FindAction("Ascend", throwIfNotFound: true);
+        m_PlayerShip_Shoot = m_PlayerShip.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +272,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_Light;
     private readonly InputAction m_PlayerShip_Descend;
     private readonly InputAction m_PlayerShip_Ascend;
+    private readonly InputAction m_PlayerShip_Shoot;
     public struct PlayerShipActions
     {
         private @Controls m_Wrapper;
@@ -260,6 +282,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Light => m_Wrapper.m_PlayerShip_Light;
         public InputAction @Descend => m_Wrapper.m_PlayerShip_Descend;
         public InputAction @Ascend => m_Wrapper.m_PlayerShip_Ascend;
+        public InputAction @Shoot => m_Wrapper.m_PlayerShip_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -284,6 +307,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Ascend.started += instance.OnAscend;
             @Ascend.performed += instance.OnAscend;
             @Ascend.canceled += instance.OnAscend;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -303,6 +329,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Ascend.started -= instance.OnAscend;
             @Ascend.performed -= instance.OnAscend;
             @Ascend.canceled -= instance.OnAscend;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -327,5 +356,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnLight(InputAction.CallbackContext context);
         void OnDescend(InputAction.CallbackContext context);
         void OnAscend(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }
