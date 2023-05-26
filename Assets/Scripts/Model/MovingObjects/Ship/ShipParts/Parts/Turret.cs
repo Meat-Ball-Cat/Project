@@ -3,7 +3,6 @@ using System.Linq;
 using JetBrains.Annotations;
 using Model.MovingObjects.Ship.Projectiles;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Model.MovingObjects.Ship.ShipParts.Parts
 {

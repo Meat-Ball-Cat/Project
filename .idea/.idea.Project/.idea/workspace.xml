@@ -4,23 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab9b0b92-996d-4c8d-944b-b38f3fdb3f47" name="Changes" comment="Pushed Chaser">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/HealthSystem/IDealsDamage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/HealthSystem/IDealsDamage.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/Projectiles/TurretFireball.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/Projectiles/TurretFireball.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/ShipParts/Parts/Turret.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/ShipParts/Parts/Turret.cs.meta" afterDir="false" />
+    <list default="true" id="ab9b0b92-996d-4c8d-944b-b38f3fdb3f47" name="Changes" comment="Added turrets">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Other/Controls.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Other/Controls.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controls.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Chaser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Chaser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Enemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/HealthSystem/Damage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/HealthSystem/Damage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/Projectiles/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/Projectiles/Projectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/Ship.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/Ship.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/ShipFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/ShipFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/ShipParts/Parts/Turret.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/ShipParts/Parts/Turret.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +23,9 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scenes/SampleScene.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/Enemies/Chaser.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/MovingObjects/Ship/ShipParts/Parts/Turret.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/kozlov/UnityProjects/Project/ProjectSettings/TagManager.asset" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
@@ -127,7 +116,7 @@
       <workItem from="1683891607109" duration="21728000" />
       <workItem from="1684497523361" duration="6677000" />
       <workItem from="1684504258959" duration="1608000" />
-      <workItem from="1685100957667" duration="7617000" />
+      <workItem from="1685100957667" duration="8891000" />
     </task>
     <task id="LOCAL-00001" summary="Removed terrain">
       <created>1683899705584</created>
@@ -178,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685104898510</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added turrets">
+      <created>1685108766394</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1685108766394</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,6 +192,7 @@
     <MESSAGE value="Added EnemySpawner" />
     <MESSAGE value="Chaser added" />
     <MESSAGE value="Pushed Chaser" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pushed Chaser" />
+    <MESSAGE value="Added turrets" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added turrets" />
   </component>
 </project>
