@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Model.HealthSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,32 +8,37 @@ namespace Model.MovingObjects.Ship.ShipParts
 {
     [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(Renderer))]
-    public abstract class ShipPart : MonoBehaviour
+    public abstract class ShipPart : MonoBehaviour, IHasHealth
     {
         private Collider2D _collider;
         private SpriteRenderer _renderer;
 
         protected readonly Cooldown HitCooldown = new(500);
 
-        [SerializeField]
-        private int baseHp = 25;
-        private int _hitPoint; 
+        [SerializeField] private float baseHp = 25;
+
+        public float BaseHp
+            => baseHp;
         
-        private int HitPoint
+        private float _currentHp; 
+        
+        
+        public float CurrentHp
         {
-            get => _hitPoint;
-            set
+            get
+                => _currentHp;
+            private set
             {
-                if (value < _hitPoint && HitCooldown.CoolingDown) 
+                if (value < _currentHp && HitCooldown.CoolingDown) 
                     return;
-                else if (value < _hitPoint)
+                else if (value < _currentHp)
                     HitCooldown.DelayedStart(10);
 
-                var newHitPoint = Math.Max(value, 0);
-                var lastHitPoint = _hitPoint;
-                _hitPoint = newHitPoint;
+                var newHitPoint = Math.Max(value, 0f);
+                var lastHitPoint = _currentHp;
+                _currentHp = newHitPoint;
 
-                if (_hitPoint != 0 || lastHitPoint <= 0) 
+                if (_currentHp != 0 || lastHitPoint <= 0) 
                     return;
             
                 gameObject.SetActive(false);
@@ -41,7 +47,7 @@ namespace Model.MovingObjects.Ship.ShipParts
         }
 
         public void Die()
-            => HitPoint = 0;
+            => CurrentHp = 0;
     
         public event EventHandler Died;
 
@@ -51,9 +57,20 @@ namespace Model.MovingObjects.Ship.ShipParts
             set => gameObject.SetActive(value);
         }
 
+        public void EnsureAlive()
+        {
+            return;
+        }
+
+        public void TakeDamage(Damage damage)
+        {
+            _currentHp -= damage.GetDamageValueExcept();
+        }
+
 
         public virtual int Width
             => 1;
+
         public virtual int Height 
             => 1;
 
@@ -62,7 +79,7 @@ namespace Model.MovingObjects.Ship.ShipParts
             _collider = GetComponent<Collider2D>();
             _renderer = GetComponent<SpriteRenderer>();
 
-            HitPoint = baseHp;
+            CurrentHp = baseHp;
             IsAlive = false;
         }
 
@@ -72,7 +89,7 @@ namespace Model.MovingObjects.Ship.ShipParts
         {
             Debug.Log($"layer {gameObject.layer} - layer {collision.gameObject.layer}");
             _renderer.color = Color.red;
-            HitPoint -= 10;
+            CurrentHp -= 10;
         }
 
         private void Update()

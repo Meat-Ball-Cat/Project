@@ -19,7 +19,11 @@ namespace Model.MovingObjects.Ship.ShipParts.Parts
         {
             _light.enabled = lightEnabled;
         }
-        public float MovementSpeed => 3;
-        public float TurningSpeed => 1;
+    
+        public float MovementSpeed
+            => 3;
+
+        public float TurningSpeed
+            => 1;
     }
 }

@@ -14,4 +14,9 @@
     {
         public float TurningSpeed { get; }
     }
+
+    internal interface IShooting
+    {
+        public void Shoot();
+    }
 }
