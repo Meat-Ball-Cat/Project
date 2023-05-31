@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab9b0b92-996d-4c8d-944b-b38f3fdb3f47" name="Changes" comment="Added turrets">
+    <list default="true" id="ab9b0b92-996d-4c8d-944b-b38f3fdb3f47" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/ShipParts/Parts/Turret.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/ShipParts/Parts/Turret.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Chaser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Chaser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/EnemyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/EnemyManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Levels/LayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Levels/LayerManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,12 +23,6 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scenes/SampleScene.unity" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/Enemies/Chaser.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kozlov/UnityProjects/Project/Assets/Scripts/Model/MovingObjects/Ship/ShipParts/Parts/Turret.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kozlov/UnityProjects/Project/ProjectSettings/TagManager.asset" root0="SKIP_HIGHLIGHTING" />
-  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -36,29 +32,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "SolutionBuilderGeneralOptionsPage",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;SolutionBuilderGeneralOptionsPage&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/Users/kozlov/Library/Application Support/JetBrains/Rider2022.3/resharper-host/DecompilerCache",
-      "/Users/kozlov/Library/Application Support/JetBrains/Rider2022.3/resharper-host/SourcesCache",
-      "/Users/kozlov/.local/share/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/kozlov/Library/Application Support/JetBrains/Rider2022.3/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/kozlov/Library/Application Support/JetBrains/Rider2022.3/resharper-host/SourcesCache&quot;,
+      &quot;/Users/kozlov/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="/Applications/Unity/Hub/Editor/2021.3.20f1/Unity.app/Contents/MacOS/Unity" />
@@ -116,7 +112,8 @@
       <workItem from="1683891607109" duration="21728000" />
       <workItem from="1684497523361" duration="6677000" />
       <workItem from="1684504258959" duration="1608000" />
-      <workItem from="1685100957667" duration="8891000" />
+      <workItem from="1685100957667" duration="9873000" />
+      <workItem from="1685555564975" duration="1145000" />
     </task>
     <task id="LOCAL-00001" summary="Removed terrain">
       <created>1683899705584</created>
@@ -174,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685108766394</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix? turret">
+      <created>1685110429256</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1685110429256</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,6 +197,7 @@
     <MESSAGE value="Chaser added" />
     <MESSAGE value="Pushed Chaser" />
     <MESSAGE value="Added turrets" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added turrets" />
+    <MESSAGE value="fix? turret" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix? turret" />
   </component>
 </project>

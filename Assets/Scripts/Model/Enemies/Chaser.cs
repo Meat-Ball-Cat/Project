@@ -44,8 +44,7 @@ namespace Model.Enemies
             EnsureAlive();
             if (!IsAlive)
             {
-                //TODO Удалять из LayerManager и других мест FIXME
-                Destroy(gameObject);
+                EnemyManager.Instance.DespawnEnemy(this);
                 return;
             }
             

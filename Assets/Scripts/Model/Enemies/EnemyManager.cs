@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Model.Levels;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = System.Random;
 
 namespace Model.Enemies
@@ -14,13 +15,27 @@ namespace Model.Enemies
         private readonly Dictionary<Layer, HashSet<Enemy>> _layers = new();
         private readonly Dictionary<Type, int> _enemyCounter = new();
 
-        [SerializeField] private int enemyCooldownMs = 12000;
+        [FormerlySerializedAs("enemySpawnCooldown")] [FormerlySerializedAs("enemyCooldownMs")] [SerializeField]
+        private int enemySpawnCooldownMs = 12000;
+
         private Cooldown _enemyCooldown;
         private readonly Random _random = new();
 
+        public static EnemyManager Instance 
+        {
+            get
+            {
+                var enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
+                if (enemyManager is null)
+                    throw new Exception("No EnemyManager present on scene");
+
+                return enemyManager;
+            }
+        }
+
         private void Awake()
         {
-            _enemyCooldown = new(enemyCooldownMs);
+            _enemyCooldown = new(enemySpawnCooldownMs);
         }
 
         private void Update()
@@ -98,11 +113,11 @@ namespace Model.Enemies
             Debug.Log($"Spawned '{enemyComponent.GetType()} at {location}'");
         }
 
-        private void DespawnEnemy(Enemy enemy)
+        public void DespawnEnemy(Enemy enemy)
         {
             Debug.Log($"Despawned {enemy}");
             _layers[LayerManager.Instance.CurrentLayer].Remove(enemy);
-            LayerManager.Instance.CurrentLayer.RemoveObject(enemy.gameObject);
+            LayerManager.Instance.RemoveObject(enemy.gameObject);
             Destroy(enemy.gameObject);
             _enemyCounter[enemy.GetType()]--;
         }

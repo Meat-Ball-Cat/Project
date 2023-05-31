@@ -113,6 +113,12 @@ namespace Assets.Scripts.Model.Levels
             obj.transform.position = position;
         }
 
+        public void RemoveObject(GameObject obj)
+        {
+            foreach (var layer in _layers.Where(l => l.ContainsObject(obj)))
+                layer.RemoveObject(obj);
+        }
+
         public void AddObject(GameObject obj)
         {
             AddObject(obj, _currentLayer);
