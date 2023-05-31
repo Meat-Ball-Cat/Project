@@ -119,6 +119,9 @@ namespace Assets.Scripts.Model.Levels
                 layer.RemoveObject(obj);
         }
 
+        public Layer FindObjectLayer(GameObject obj)
+            => _layers.FirstOrDefault(l => l.ContainsObject(obj));
+
         public void AddObject(GameObject obj)
         {
             AddObject(obj, _currentLayer);

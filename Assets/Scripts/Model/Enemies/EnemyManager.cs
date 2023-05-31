@@ -13,10 +13,12 @@ namespace Model.Enemies
         [SerializeField] private GameObject[] enemies;
 
         private readonly Dictionary<Layer, HashSet<Enemy>> _layers = new();
-        private readonly Dictionary<Type, int> _enemyCounter = new();
+        private readonly Dictionary<Type, Dictionary<Layer, int>> _enemyCounter = new();
 
         [FormerlySerializedAs("enemySpawnCooldown")] [FormerlySerializedAs("enemyCooldownMs")] [SerializeField]
         private int enemySpawnCooldownMs = 12000;
+
+        [SerializeField] private float incrementEnemiesByPercentEachLayer = 25;
 
         private Cooldown _enemyCooldown;
         private readonly Random _random = new();
@@ -75,7 +77,11 @@ namespace Model.Enemies
             foreach (var enemyPrefab in enemies)
             {
                 var enemyData = enemyPrefab.GetComponent<Enemy>();
-                for (var _ = 0; _ < enemyData.MaxNumberOnMap - GetEnemyCount(enemyData); _++)
+                for (var _ = 0;
+                     _ < enemyData.MaxNumberOnMap
+                     * (1 + incrementEnemiesByPercentEachLayer * LayerManager.Instance.CurrentLayer.LayerId) 
+                     - GetEnemyCount(enemyData);
+                     _++)
                 {
                     if (enemyData is null)
                         throw new InvalidOperationException(
@@ -99,16 +105,17 @@ namespace Model.Enemies
 
         private void SpawnEnemy(GameObject enemyPrefab, Vector3 location)
         {
+            var currentLayer = LayerManager.Instance.CurrentLayer;
             var enemy = Instantiate(enemyPrefab);
             enemy.transform.position = location;
             
             LayerManager.Instance.AddObject(enemy);
-            _layers[LayerManager.Instance.CurrentLayer].Add(enemy.GetComponent<Enemy>());
+            _layers[currentLayer].Add(enemy.GetComponent<Enemy>());
 
             var enemyComponent = enemyPrefab.GetComponent<Enemy>();
             
-            _enemyCounter.TryAdd(enemyComponent.GetType(), 0);
-            _enemyCounter[enemyComponent.GetType()]++;
+            _enemyCounter.TryAdd(enemyComponent.GetType(), new Dictionary<Layer, int> { { currentLayer, 0 } });
+            _enemyCounter[enemyComponent.GetType()][currentLayer]++;
             
             Debug.Log($"Spawned '{enemyComponent.GetType()} at {location}'");
         }
@@ -116,18 +123,23 @@ namespace Model.Enemies
         public void DespawnEnemy(Enemy enemy)
         {
             Debug.Log($"Despawned {enemy}");
-            _layers[LayerManager.Instance.CurrentLayer].Remove(enemy);
+
+            var layer = LayerManager.Instance.FindObjectLayer(enemy.gameObject);
+            
+            _layers[layer].Remove(enemy);
             LayerManager.Instance.RemoveObject(enemy.gameObject);
+
             Destroy(enemy.gameObject);
-            _enemyCounter[enemy.GetType()]--;
+            _enemyCounter[enemy.GetType()][layer]--;
         }
 
         private int GetEnemyCount(Enemy enemy)
         {
             var enemyType = enemy.GetType();
+            var currentLayer = LayerManager.Instance.CurrentLayer;
             
-            _enemyCounter.TryAdd(enemyType, 0);
-            return _enemyCounter[enemyType];
+            _enemyCounter.TryAdd(enemyType, new Dictionary<Layer, int> { { currentLayer, 0 } });
+            return _enemyCounter[enemyType][currentLayer];
         }
     }
 }

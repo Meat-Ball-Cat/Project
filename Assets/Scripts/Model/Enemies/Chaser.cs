@@ -21,7 +21,6 @@ namespace Model.Enemies
         {
             CurrentHp -= damage.GetDamageValueExcept(DamageType.Collision);
             CurrentHp -= damage.GetDamageValue(DamageType.Collision) * 0.4f;
-            EnsureAlive();
         }
 
         private void UpdateTargetInfo()
@@ -57,7 +56,7 @@ namespace Model.Enemies
             if (CurrentTarget is null)
                 return;
             
-            // RotateToTarget();
+            RotateToTarget();
             // var currentRotation = gameObject.transform.rotation.eulerAngles.z * Math.PI / 180;
             // Move(new Vector2((float)Math.Cos(currentRotation),
                 // (float)Math.Sin(currentRotation)) * movementSpeed);
@@ -67,15 +66,10 @@ namespace Model.Enemies
             Move(new Vector2(target.x, target.y));
         }
 
-        private Coroutine _lookCoroutine;
-
         private void RotateToTarget()
         {
             if (CurrentTarget is null)
                 return;
-
-            var lookAt = CurrentTarget.transform.position;
-            gameObject.transform.LookAt(lookAt);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Model.Enemies
         [CanBeNull] public abstract MovingObject CurrentTarget { get; protected set; }
 
         [CanBeNull]
-        protected static Player Player
+        public static Player Player
             => GameObject.FindWithTag("Player")?.GetComponent<Player>();
 
         [SerializeField] protected float minDistanceFromPlayerToSpawn = 60;
@@ -40,11 +40,10 @@ namespace Model.Enemies
 
         public virtual void EnsureAlive()
         {
-            if (!(CurrentHp < 0) && IsAlive != false)
+            if (CurrentHp > 0)
                 return;
             
             IsAlive = false;
-            //TODO удалять со слоя после смерти
         }
 
         public abstract void TakeDamage(Damage damage);
