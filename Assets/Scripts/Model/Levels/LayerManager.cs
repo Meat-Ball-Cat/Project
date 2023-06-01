@@ -11,7 +11,7 @@ namespace Assets.Scripts.Model.Levels
     public sealed class LayerManager : MonoBehaviour
     {
         [FormerlySerializedAs("levelDepthDifference")] [SerializeField]
-        private float layersDepthDifference = 2;
+        private float layersDepthDifference = 10;
 
         [FormerlySerializedAs("defaultLevelsNumber")] [SerializeField]
         private int layersCount = 4;

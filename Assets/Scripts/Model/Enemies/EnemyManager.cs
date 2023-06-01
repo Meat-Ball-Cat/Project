@@ -137,8 +137,11 @@ namespace Model.Enemies
         {
             var enemyType = enemy.GetType();
             var currentLayer = LayerManager.Instance.CurrentLayer;
-            
-            _enemyCounter.TryAdd(enemyType, new Dictionary<Layer, int> { { currentLayer, 0 } });
+
+            if (!_enemyCounter.ContainsKey(enemyType))
+                _enemyCounter[enemyType] = new Dictionary<Layer, int> { { currentLayer, 0 } };
+            if (!_enemyCounter[enemyType].ContainsKey(currentLayer))
+                _enemyCounter[enemyType][currentLayer] = 0;
             return _enemyCounter[enemyType][currentLayer];
         }
     }

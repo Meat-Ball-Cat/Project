@@ -18,7 +18,7 @@ namespace Model.MovingObjects
         protected bool DepthChangeLocked { get; private set; } 
     
         [FormerlySerializedAs("_movementSpeed")] [SerializeField]
-        protected float movementSpeed = 5;
+        protected float movementSpeed = 1;
 
         [FormerlySerializedAs("_turningSpeed")] [SerializeField]
         protected float turningSpeed = 1.4f;

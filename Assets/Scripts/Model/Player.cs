@@ -7,6 +7,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Model
 {
+    [RequireComponent(typeof(AudioListener))]
     public class Player : MonoBehaviour
     {
         public Ship Ship { get; private set; }

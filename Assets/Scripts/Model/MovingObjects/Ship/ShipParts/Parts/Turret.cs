@@ -11,6 +11,7 @@ namespace Model.MovingObjects.Ship.ShipParts.Parts
         [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private int fireCooldownMs = 700;
         [SerializeField] private float shootingRadius = 20;
+        [SerializeField] private float maxAngleToTargetDegrees = 45;
 
         private Cooldown _shootingCooldown;
         private Projectile _projectile;
@@ -21,8 +22,12 @@ namespace Model.MovingObjects.Ship.ShipParts.Parts
                 .FindGameObjectsWithTag("Enemy")
                 .Where(e =>
                 {
-                    var directionToEnemy = gameObject.transform.position - e.transform.position;
-                    return Vector3.Dot(directionToEnemy, directionToEnemy) >= 0;
+                    var directionToEnemy = transform.position - e.transform.position;
+                    var facing = transform.up * (-1);
+                    var angleToEnemyCos = Vector3.Dot(directionToEnemy, facing) 
+                                          / (directionToEnemy.magnitude * facing.magnitude);
+                    
+                    return Math.Acos(angleToEnemyCos) / Math.PI * 180 <= maxAngleToTargetDegrees;
                 })
                 .Where(e => (gameObject.transform.position - e.transform.position).magnitude <= shootingRadius)
                 .OrderBy(e => (gameObject.transform.position - e.transform.position).magnitude)
