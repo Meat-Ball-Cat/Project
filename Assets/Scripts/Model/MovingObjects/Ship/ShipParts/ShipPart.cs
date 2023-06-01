@@ -29,7 +29,7 @@ namespace Model.MovingObjects.Ship.ShipParts
                 => _currentHp;
             private set
             {
-                if (value < _currentHp && HitCooldown.CoolingDown) 
+                if (value > 0 && value < _currentHp && HitCooldown.CoolingDown) 
                     return;
                 else if (value < _currentHp)
                     HitCooldown.DelayedStart(10);

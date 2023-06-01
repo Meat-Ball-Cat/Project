@@ -80,10 +80,7 @@ namespace Assets.Scripts.Model.Levels
                 if (maps == null || maps.Length < i)
                     continue;
 
-                if (i <= 0)
-                    continue;
-
-                var map = Instantiate(maps[i - 1], layers.transform, true);
+                var map = Instantiate(maps[i], layers.transform, true);
                 AddObject(map, newLayer);
             }
         }
@@ -170,6 +167,13 @@ namespace Assets.Scripts.Model.Levels
             {
                 var currentObj = objects.Dequeue();
                 currentObj.gameObject.layer = layerId;
+                var renderer = currentObj.gameObject.GetComponent<SpriteRenderer>();
+                if (renderer != null)
+                {
+                    Debug.Log(14 - layerId);
+                    renderer.sortingLayerName = (layerId - 10).ToString();
+                }
+
                 foreach (Transform child in currentObj.transform)
                     objects.Enqueue(child);
             }

@@ -319,7 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 8201541951859701713, guid: 6b2999ce60bec104bb8ae8ec1287c07f, type: 3}
-  enemySpawnCooldownMs: 12000
+  enemySpawnCooldownMs: 1000
   incrementEnemiesByPercentEachLayer: 25
 --- !u!4 &1732072813
 Transform:

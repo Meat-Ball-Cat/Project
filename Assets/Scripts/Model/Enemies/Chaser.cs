@@ -74,7 +74,6 @@ namespace Model.Enemies
                 return;
             }
             
-            RandomRotate();
             UpdateTargetInfo();
             MoveToPlayer();
         }
@@ -97,37 +96,9 @@ namespace Model.Enemies
             if (CurrentTarget is null)
                 return;
             
-            RotateToTarget();
-            // var currentRotation = gameObject.transform.rotation.eulerAngles.z * Math.PI / 180;
-            // Move(new Vector2((float)Math.Cos(currentRotation),
-                // (float)Math.Sin(currentRotation)) * movementSpeed);
-
             var target = CurrentTarget.transform.position - transform.position;
             
-            // Rigidbody.velocity = target.normalized * Math.Min(Rigidbody.velocity.magnitude, movementSpeed);
             Move(new Vector2(target.x, target.y));
-        }
-
-        private void RotateToTarget()
-        {
-            if (CurrentTarget is null)
-                return;
-        }
-
-        private void RandomRotate()
-        {
-            if (_rotationCooldown.CoolingDown)
-                return;
-            
-            _rb.AddTorque(NextFloat() * randomRotationSpeed);
-            _rotationCooldown.Start();
-        }
-
-        private float NextFloat()
-        {
-            var buffer = new byte[4];
-            _random.NextBytes(buffer);
-            return BitConverter.ToSingle(buffer, 0);
         }
 
         private new void FixedUpdate()

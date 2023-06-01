@@ -16,7 +16,7 @@ namespace Model.Enemies
         private readonly Dictionary<Type, Dictionary<Layer, int>> _enemyCounter = new();
 
         [FormerlySerializedAs("enemySpawnCooldown")] [FormerlySerializedAs("enemyCooldownMs")] [SerializeField]
-        private int enemySpawnCooldownMs = 3000;
+        private int enemySpawnCooldownMs = 2500;
 
         [SerializeField] private float incrementEnemiesByPercentEachLayer = 25;
 
@@ -78,25 +78,26 @@ namespace Model.Enemies
             foreach (var enemyPrefab in enemies)
             {
                 var enemyData = enemyPrefab.GetComponent<Enemy>();
-                for (var _ = 0;
-                     _ < enemyData.MaxNumberOnMap
-                     * (1 + incrementEnemiesByPercentEachLayer * LayerManager.Instance.CurrentLayer.LayerId) 
-                     - GetEnemyCount(enemyData);
-                     _++)
+                //for (var _ = 0;
+                //     _ < enemyData.MaxNumberOnMap
+                //     * (1 + incrementEnemiesByPercentEachLayer * LayerManager.Instance.CurrentLayer.LayerId) 
+                //     - GetEnemyCount(enemyData);
+                //     _++)
                 {
                     if (enemyData is null)
                         throw new InvalidOperationException(
                             $"Enemy {enemyPrefab} doesn't have component derived from 'Enemy'" +
                             " and cannot be managed by EnemyManager.");
-                
+
                     if (GetEnemyCount(enemyData) > enemyData.MaxNumberOnMap)
                         continue;
 
-                    var distanceToPlayer = _random.Next((int)Math.Truncate(enemyData.MinDistanceFromPlayerToSpawn),
-                        (int)Math.Floor(enemyData.DistanceToDespawn * 0.8));
+                    var distanceToPlayer =
+                        _random.NextDouble() * (enemyData.DistanceToDespawn - enemyData.MinDistanceFromPlayerToSpawn) +
+                        enemyData.MinDistanceFromPlayerToSpawn;
 
-                    var location = new Vector3((float)_random.NextDouble() * distanceToPlayer,
-                        (float)_random.NextDouble() * distanceToPlayer,
+                    var location = new Vector3((float)(_random.NextDouble() * distanceToPlayer),
+                        (float)(_random.NextDouble() * distanceToPlayer),
                         LayerManager.Instance.GetLayerDepth(LayerManager.Instance.CurrentLayer.LayerId));
                 
                     SpawnEnemy(enemyPrefab, location);
