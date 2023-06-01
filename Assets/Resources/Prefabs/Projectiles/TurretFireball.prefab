@@ -137,7 +137,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 4
-  enableCollisionAfterMs: 200
   explosionDamage: 15
   collisionDamage: 0
   despawnDistance: 250
+  hitEffectPrefab: {fileID: 409915858065148858, guid: 9a680afe7131eb316b9adb91f8961a88, type: 3}
+  hitSound: {fileID: 8300000, guid: abcc7f66d1e88c18da8ce7d7894ab33b, type: 3}
+  generalAudioVolume: 1

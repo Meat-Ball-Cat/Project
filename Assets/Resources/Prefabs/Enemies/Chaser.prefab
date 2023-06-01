@@ -57,8 +57,7 @@ MonoBehaviour:
   speedIncrementForFrame: 0.0001
   maxSpeed: 5
   deathSound: {fileID: 8300000, guid: 03159f10feeefa89594bae9a2f87c4da, type: 3}
-  damageSound: {fileID: 8300000, guid: abcc7f66d1e88c18da8ce7d7894ab33b, type: 3}
-  generalAudioVolume: 0.1
+  generalAudioVolume: 1
 --- !u!212 &4286586634896813454
 SpriteRenderer:
   m_ObjectHideFlags: 0

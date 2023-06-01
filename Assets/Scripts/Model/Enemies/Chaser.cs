@@ -19,7 +19,6 @@ namespace Model.Enemies
         [SerializeField] private float maxSpeed = 5;
 
         [SerializeField] [CanBeNull] private AudioClip deathSound;
-        [SerializeField] [CanBeNull] private AudioClip damageSound;
         [SerializeField] private float generalAudioVolume = 0.1f;
 
         public override float CurrentHp { get; protected set; }
@@ -33,7 +32,8 @@ namespace Model.Enemies
             
             CurrentHp -= damage.GetDamageValueExcept(DamageType.Collision);
             CurrentHp -= damage.GetDamageValue(DamageType.Collision) * 0.4f;
-            PlaySound(CurrentHp > 0 ? damageSound : deathSound);
+            if (CurrentHp < 0)
+                PlaySound(deathSound);
         }
 
         private void UpdateTargetInfo()
