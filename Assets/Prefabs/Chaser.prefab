@@ -56,8 +56,8 @@ MonoBehaviour:
   searchRadius: 30
   speedIncrementForFrame: 0.0001
   maxSpeed: 5
-  deathSound: {fileID: 8300000, guid: aef362820540d407da91ed32f0012afd, type: 3}
-  damageSound: {fileID: 8300000, guid: 0d6a85d3f55f3455185855eac08aea54, type: 3}
+  deathSound: {fileID: 8300000, guid: 03159f10feeefa89594bae9a2f87c4da, type: 3}
+  damageSound: {fileID: 8300000, guid: abcc7f66d1e88c18da8ce7d7894ab33b, type: 3}
   generalAudioVolume: 0.1
 --- !u!212 &4286586634896813454
 SpriteRenderer:
@@ -137,7 +137,7 @@ MonoBehaviour:
   - {x: 0.4000001, y: -0.48, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -4486
+  m_InstanceId: 36354
   m_LocalBounds:
     m_Center: {x: 0, y: 0.000000029802322, z: 0}
     m_Extent: {x: 0.4000001, y: 0.48000002, z: 0}

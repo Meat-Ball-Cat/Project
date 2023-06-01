@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 1732072812}
   m_Layer: 0
   m_Name: EnemySpawner
-  m_TagString: Untagged
+  m_TagString: EnemyManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -318,8 +318,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 8201541951859701713, guid: 3ba944a108cba405a939615d2f7c8cfe, type: 3}
-  enemyCooldownMs: 12000
+  - {fileID: 8201541951859701713, guid: 6b2999ce60bec104bb8ae8ec1287c07f, type: 3}
+  enemySpawnCooldownMs: 12000
+  incrementEnemiesByPercentEachLayer: 25
 --- !u!4 &1732072813
 Transform:
   m_ObjectHideFlags: 0
