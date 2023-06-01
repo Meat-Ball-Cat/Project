@@ -24,12 +24,13 @@ namespace Model
 
             var player = new GameObject("Player")
             {
-                layer = gameObject.layer
+                layer = gameObject.layer,
             };
         
             player.AddComponent<Player>();
             player.tag = "Player";
             _player = player.GetComponent<Player>();
+            _player.enabled = true;
 
             globalLight = Instantiate(globalLight);
 

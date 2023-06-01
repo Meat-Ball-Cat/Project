@@ -19,7 +19,7 @@ namespace Model.MovingObjects.Ship
 
         public Ship CreateShip()
         {
-            var ship = _owner.AddComponent<global::Model.MovingObjects.Ship.Ship>();
+            var ship = _owner.AddComponent<Ship>();
 
 
             ship.AddPart(Parts(typeof(Cockpit)), Vector2Int.zero);
@@ -43,7 +43,7 @@ namespace Model.MovingObjects.Ship
 
         private static ShipPart Parts(Type partType)
         {
-            var fileName = PrefabNames[partType];
+            var fileName = $"Prefabs/ShipParts/{PrefabNames[partType]}";
             return Object.Instantiate(Resources.Load<GameObject>(fileName)).GetComponent<ShipPart>();
         }
     }
