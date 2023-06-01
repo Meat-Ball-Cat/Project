@@ -53,7 +53,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 2.56, y: 2.56}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -102,12 +102,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d54830f2ad88a46228e35bbd52cb91d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c15cbf8f6c74799469c2fa8e7ad05bf9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -126,8 +126,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHp: 25
-  projectilePrefab: {fileID: 6558530800537397283, guid: 2e49ae33cf0a54814b43907ed8cc440b, type: 3}
+  projectilePrefab: {fileID: 6558530800537397283, guid: d087ea2857d602c46b940c688de88347, type: 3}
   fireCooldownMs: 700
+  shootingRadius: 20
 --- !u!1 &7683356707654410284
 GameObject:
   m_ObjectHideFlags: 0

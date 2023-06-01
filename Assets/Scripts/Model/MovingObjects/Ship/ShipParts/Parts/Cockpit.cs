@@ -1,4 +1,5 @@
-﻿using UnityEngine.Rendering.Universal;
+﻿using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Model.MovingObjects.Ship.ShipParts.Parts
 {

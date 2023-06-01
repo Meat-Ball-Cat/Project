@@ -11,7 +11,7 @@ namespace Model
 
         [SerializeField] private float globalLightMaxIntensity = 1, 
             globalLightMinIntensity = 0.05f,
-            setMinIntensityAfterDepth = 2000f;
+            setMinIntensityAfterDepth = 20f;
 
         [FormerlySerializedAs("_globalLight")] [SerializeField]
         private Light2D globalLight;

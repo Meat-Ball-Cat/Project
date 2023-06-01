@@ -29,6 +29,8 @@ namespace Model.MovingObjects.Ship
                 => _lightEnabled;
             set
             {
+                if (value && transform.position.z == 0)
+                    return;
                 _lightEnabled = value;
                 foreach (var partLight in FindJoinedParts(_cockpit, false).OfType<ILight>())
                     partLight.SetLightEnabled(_lightEnabled);
@@ -42,6 +44,14 @@ namespace Model.MovingObjects.Ship
             _shipObject = new GameObject("Ship");
             _shipObject.transform.SetParent(gameObject.transform); // Добавить корабль в качестве дочернего объекта к владельцу корабля
             _shipObject.layer = gameObject.layer;
+        }
+
+        private void Update()
+        {
+            if (LightEnabled && transform.position.z == 0)
+                LightEnabled = false;
+            else
+                LightEnabled = true;
         }
 
         /// <summary>
