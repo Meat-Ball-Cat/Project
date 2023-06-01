@@ -69,7 +69,7 @@ namespace Model.MovingObjects.Ship.Projectiles
             if (volume is null or < 0)
                 volume = 0;
 
-            volume = Math.Max((float)volume, 1f) * generalAudioVolume;
+            volume = Math.Max((float)volume, 1f) * generalAudioVolume; 
             AudioSource.PlayClipAtPoint(sound, transform.position, (float)volume);
         }
 

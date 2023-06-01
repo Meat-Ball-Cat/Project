@@ -5,9 +5,11 @@ using Model.HealthSystem;
 using Model.MovingObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = System.Random;
 
 namespace Model.Enemies
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Chaser : Enemy
     {
         [SerializeField] private float searchRadius = 30;
@@ -20,6 +22,14 @@ namespace Model.Enemies
 
         [SerializeField] [CanBeNull] private AudioClip deathSound;
         [SerializeField] private float generalAudioVolume = 0.1f;
+
+        [SerializeField] private float randomRotationSpeed = 0f;
+        [SerializeField] private int randomRotationCooldownMs = 350;
+
+        private Random _random = new();
+        private Cooldown _rotationCooldown;
+
+        private Rigidbody2D _rb;
 
         public override float CurrentHp { get; protected set; }
         [CanBeNull] public override MovingObject CurrentTarget { get; protected set; }
@@ -49,6 +59,9 @@ namespace Model.Enemies
             IsAlive = true;
             CurrentHp = BaseHp;
             LayerManager.Instance.AddObject(this.gameObject);
+
+            _rb = GetComponent<Rigidbody2D>();
+            _rotationCooldown = new(randomRotationCooldownMs);
         }
 
         private void Update()
@@ -60,6 +73,7 @@ namespace Model.Enemies
                 return;
             }
             
+            RandomRotate();
             UpdateTargetInfo();
             MoveToPlayer();
         }
@@ -96,6 +110,22 @@ namespace Model.Enemies
         {
             if (CurrentTarget is null)
                 return;
+        }
+
+        private void RandomRotate()
+        {
+            if (_rotationCooldown.CoolingDown)
+                return;
+            
+            _rb.AddTorque(NextFloat() * randomRotationSpeed);
+            _rotationCooldown.Start();
+        }
+
+        private float NextFloat()
+        {
+            var buffer = new byte[4];
+            _random.NextBytes(buffer);
+            return BitConverter.ToSingle(buffer, 0);
         }
 
         private new void FixedUpdate()
