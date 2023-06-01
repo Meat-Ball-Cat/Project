@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Assets.Scripts.Model.Levels;
 using JetBrains.Annotations;
 using Model.MovingObjects.Ship.Projectiles;
 using UnityEngine;
@@ -18,8 +19,9 @@ namespace Model.MovingObjects.Ship.ShipParts.Parts
 
         [CanBeNull]
         private GameObject GetNearestEnemy()
-            => GameObject
-                .FindGameObjectsWithTag("Enemy")
+            => LayerManager.Instance.CurrentLayer
+                .GetObjects()
+                .Where(o => o.CompareTag("Enemy"))
                 .Where(e =>
                 {
                     var directionToEnemy = transform.position - e.transform.position;
