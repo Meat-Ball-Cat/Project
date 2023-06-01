@@ -18,8 +18,8 @@ namespace Model.Enemies
         [FormerlySerializedAs("speedIncrementForTick")] [SerializeField] private float speedIncrementForFrame = 0.0001f;
         [SerializeField] private float maxSpeed = 5;
 
-        [SerializeField] private AudioClip deathSound;
-        [SerializeField] private AudioClip damageSound;
+        [SerializeField] [CanBeNull] private AudioClip deathSound;
+        [SerializeField] [CanBeNull] private AudioClip damageSound;
         [SerializeField] private float generalAudioVolume = 0.1f;
 
         public override float CurrentHp { get; protected set; }

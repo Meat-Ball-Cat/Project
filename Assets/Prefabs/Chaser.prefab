@@ -54,6 +54,11 @@ MonoBehaviour:
   maxNumberOnMap: 40
   distanceToDespawn: 100
   searchRadius: 30
+  speedIncrementForFrame: 0.0001
+  maxSpeed: 5
+  deathSound: {fileID: 8300000, guid: aef362820540d407da91ed32f0012afd, type: 3}
+  damageSound: {fileID: 8300000, guid: 0d6a85d3f55f3455185855eac08aea54, type: 3}
+  generalAudioVolume: 0.1
 --- !u!212 &4286586634896813454
 SpriteRenderer:
   m_ObjectHideFlags: 0
