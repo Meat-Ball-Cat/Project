@@ -21,7 +21,7 @@ namespace Model
             rigidbody.gravityScale = 0;
             rigidbody.useAutoMass = true;
 
-            Ship = new PlayerShipFactory(gameObject).GetShip();
+            Ship = new PlayerShipFactory(gameObject).FromText("TST\nHCH\nHHH\nEEE");
             LayerManager.Instance.AddObject(Ship.gameObject);
             Ship.ChangeLayer += (obj, arg) =>
                 LayerManager.Instance.SetCurrentLayer(((MovingObject)obj).gameObject.layer);

@@ -52,7 +52,7 @@ MonoBehaviour:
   movementSpeed: 2
   turningSpeed: 1.4
   minDistanceFromPlayerToSpawn: 100
-  maxNumberOnMap: 40
+  maxNumberOnMap: 200
   distanceToDespawn: 200
   searchRadius: 60
   speedIncrementForFrame: 0.0001

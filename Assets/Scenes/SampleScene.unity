@@ -366,9 +366,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipPartLight: {fileID: 474761987704276922, guid: dfb0c3b7869deac4a9e472896cf69ac5, type: 3}
-  globalLightMaxIntensity: 0.3
+  globalLightMaxIntensity: 1
   globalLightMinIntensity: 0.05
-  setMinIntensityAfterDepth: 26
+  setMinIntensityAfterDepth: 27
   globalLight: {fileID: 2567255534486795683, guid: 64103a8fea0837a4cb56b60d626d678e, type: 3}
 --- !u!4 &1974987120
 Transform:
