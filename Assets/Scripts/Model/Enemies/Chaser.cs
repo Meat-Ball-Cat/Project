@@ -1,8 +1,10 @@
+using System;
 using Assets.Scripts.Model.Levels;
 using JetBrains.Annotations;
 using Model.HealthSystem;
 using Model.MovingObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Model.Enemies
 {
@@ -12,15 +14,26 @@ namespace Model.Enemies
 
         public override float BaseHp
             => 25;
-        
+
+        [FormerlySerializedAs("speedIncrementForTick")] [SerializeField] private float speedIncrementForFrame = 0.0001f;
+        [SerializeField] private float maxSpeed = 5;
+
+        [SerializeField] private AudioClip deathSound;
+        [SerializeField] private AudioClip damageSound;
+        [SerializeField] private float generalAudioVolume = 0.1f;
+
         public override float CurrentHp { get; protected set; }
         [CanBeNull] public override MovingObject CurrentTarget { get; protected set; }
         public override bool IsAlive { get; protected set; }
 
         public override void TakeDamage(Damage damage)
         {
+            if (CurrentHp <= 0)
+                return;
+            
             CurrentHp -= damage.GetDamageValueExcept(DamageType.Collision);
             CurrentHp -= damage.GetDamageValue(DamageType.Collision) * 0.4f;
+            PlaySound(CurrentHp > 0 ? damageSound : deathSound);
         }
 
         private void UpdateTargetInfo()
@@ -51,6 +64,19 @@ namespace Model.Enemies
             MoveToPlayer();
         }
 
+        private void PlaySound(AudioClip sound)
+        {
+            if (sound is null)
+                return;
+
+            var volume = searchRadius / GetDistanceToTarget() - 1;
+            if (volume is null or < 0)
+                volume = 0;
+
+            volume = Math.Max((float)volume, 1f) * generalAudioVolume;
+            AudioSource.PlayClipAtPoint(sound, transform.position, (float)volume);
+        }
+
         private void MoveToPlayer()
         {
             if (CurrentTarget is null)
@@ -70,6 +96,12 @@ namespace Model.Enemies
         {
             if (CurrentTarget is null)
                 return;
+        }
+
+        private new void FixedUpdate()
+        {
+            base.FixedUpdate();
+            movementSpeed = Math.Min(movementSpeed + speedIncrementForFrame, maxSpeed);
         }
     }
 }
