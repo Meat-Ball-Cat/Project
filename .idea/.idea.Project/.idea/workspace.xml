@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab9b0b92-996d-4c8d-944b-b38f3fdb3f47" name="Changes" comment="Fixed memory leak on enemy death">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/TurretFireball.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/TurretFireball.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Chaser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Chaser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/Enemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/EnemyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Enemies/EnemyManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/Levels/LayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/Levels/LayerManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/Projectiles/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/Projectiles/Projectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/Projectiles/TurretFireball.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Model/MovingObjects/Ship/Projectiles/TurretFireball.cs" afterDir="false" />
-    </list>
+    <list default="true" id="ab9b0b92-996d-4c8d-944b-b38f3fdb3f47" name="Changes" comment="Added sounds to enemies" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -120,7 +111,7 @@
       <workItem from="1684497523361" duration="6677000" />
       <workItem from="1684504258959" duration="1608000" />
       <workItem from="1685100957667" duration="9873000" />
-      <workItem from="1685555564975" duration="4077000" />
+      <workItem from="1685555564975" duration="10689000" />
     </task>
     <task id="LOCAL-00001" summary="Removed terrain">
       <created>1683899705584</created>
@@ -192,7 +183,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685557622253</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="- Fixed memory leaks&#10;- Added more enemies on deep layers">
+      <created>1685560522749</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1685560522749</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added sounds to enemies">
+      <created>1685614413313</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1685614413313</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,6 +218,8 @@
     <MESSAGE value="Added turrets" />
     <MESSAGE value="fix? turret" />
     <MESSAGE value="Fixed memory leak on enemy death" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed memory leak on enemy death" />
+    <MESSAGE value="- Fixed memory leaks&#10;- Added more enemies on deep layers" />
+    <MESSAGE value="Added sounds to enemies" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added sounds to enemies" />
   </component>
 </project>
