@@ -47,7 +47,6 @@ namespace Model.MovingObjects.Ship.ShipParts.Parts
 
         public void Shoot()
         {
-            // TODO может стрелять в себя, FIXME
             if (_shootingCooldown.CoolingDown)
                 return;
             

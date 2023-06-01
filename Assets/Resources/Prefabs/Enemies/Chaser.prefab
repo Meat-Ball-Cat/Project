@@ -51,10 +51,10 @@ MonoBehaviour:
   oneLevelChangeTimeSeconds: 0.4
   movementSpeed: 2
   turningSpeed: 1.4
-  minDistanceFromPlayerToSpawn: 60
+  minDistanceFromPlayerToSpawn: 100
   maxNumberOnMap: 40
-  distanceToDespawn: 100
-  searchRadius: 30
+  distanceToDespawn: 200
+  searchRadius: 60
   speedIncrementForFrame: 0.0001
   maxSpeed: 5
   deathSound: {fileID: 8300000, guid: 03159f10feeefa89594bae9a2f87c4da, type: 3}

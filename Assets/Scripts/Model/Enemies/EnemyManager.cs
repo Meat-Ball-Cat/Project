@@ -16,7 +16,7 @@ namespace Model.Enemies
         private readonly Dictionary<Type, Dictionary<Layer, int>> _enemyCounter = new();
 
         [FormerlySerializedAs("enemySpawnCooldown")] [FormerlySerializedAs("enemyCooldownMs")] [SerializeField]
-        private int enemySpawnCooldownMs = 12000;
+        private int enemySpawnCooldownMs = 3000;
 
         [SerializeField] private float incrementEnemiesByPercentEachLayer = 25;
 
@@ -38,6 +38,7 @@ namespace Model.Enemies
         private void Awake()
         {
             _enemyCooldown = new(enemySpawnCooldownMs);
+            _enemyCooldown.Start();
         }
 
         private void Update()

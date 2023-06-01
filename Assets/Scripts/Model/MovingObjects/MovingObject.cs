@@ -38,7 +38,7 @@ namespace Model.MovingObjects
 
         public void Move(Vector2 direction)
         {
-            CurrentMoveForce = movementSpeed * direction;
+            CurrentMoveForce = movementSpeed * direction.normalized;
         }
 
         public void Turn(float axis)

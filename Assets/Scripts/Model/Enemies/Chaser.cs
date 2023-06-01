@@ -51,6 +51,7 @@ namespace Model.Enemies
             if (CurrentTarget is not null || Player is null || GetDistanceToTarget() > searchRadius)
                 return;
             
+            Debug.Log($"Acquired target for {this}");
             CurrentTarget = LayerManager.Instance.CurrentLayer.ContainsObject(gameObject) ? Player.Ship : null;
         }
 
@@ -102,7 +103,8 @@ namespace Model.Enemies
                 // (float)Math.Sin(currentRotation)) * movementSpeed);
 
             var target = CurrentTarget.transform.position - transform.position;
-            Rigidbody.velocity /= 45;
+            
+            // Rigidbody.velocity = target.normalized * Math.Min(Rigidbody.velocity.magnitude, movementSpeed);
             Move(new Vector2(target.x, target.y));
         }
 
